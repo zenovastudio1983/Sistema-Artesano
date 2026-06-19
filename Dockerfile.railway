@@ -1,0 +1,80 @@
+FROM php:8.4-fpm-alpine AS base
+
+# System dependencies — incluye nginx y supervisor para container único
+RUN apk add --no-cache \
+    git \
+    curl \
+    libpng-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    oniguruma-dev \
+    postgresql-dev \
+    libzip-dev \
+    freetype-dev \
+    libjpeg-turbo-dev \
+    icu-dev \
+    linux-headers \
+    nodejs \
+    npm \
+    nginx \
+    supervisor \
+    $PHPIZE_DEPS
+
+# PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install \
+        pdo \
+        pdo_pgsql \
+        pgsql \
+        mbstring \
+        exif \
+        pcntl \
+        bcmath \
+        gd \
+        zip \
+        xml \
+        intl \
+        opcache
+
+# Redis extension
+RUN pecl install redis && docker-php-ext-enable redis
+
+# Composer
+COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+# Copiar código fuente
+COPY --chown=www-data:www-data . .
+
+# Instalar dependencias PHP (sin dev) y compilar assets
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev \
+    && npm ci \
+    && npm run build \
+    && rm -rf node_modules
+
+# Directorios de almacenamiento con permisos correctos
+RUN mkdir -p storage/framework/sessions \
+             storage/framework/views \
+             storage/framework/cache/data \
+             storage/logs \
+             storage/app/public \
+             bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache
+
+# Configuraciones de producción
+COPY docker/nginx/railway.conf /etc/nginx/http.d/default.conf
+COPY docker/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/php/php-prod.ini /usr/local/etc/php/conf.d/zz-custom.ini
+COPY docker/php/www.conf /usr/local/etc/php-fpm.d/www.conf
+
+# Script de arranque
+COPY scripts/start.sh /start.sh
+RUN chmod +x /start.sh
+
+# Railway usa el puerto 8080 por defecto
+EXPOSE 8080
+
+CMD ["/start.sh"]
