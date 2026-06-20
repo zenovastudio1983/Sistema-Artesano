@@ -4,7 +4,6 @@ set -e
 echo "==> Artisan ERP — iniciando deploy..."
 
 # Railway provee DATABASE_URL en formato postgresql://user:pass@host:port/db
-# Lo parseamos con PHP para extraer los componentes que Laravel necesita
 if [ ! -z "$DATABASE_URL" ]; then
     echo "==> Configurando DB desde DATABASE_URL..."
     eval $(php -r "
@@ -43,12 +42,23 @@ echo "   DB lista."
 echo "==> Ejecutando migraciones..."
 php artisan migrate --force
 
-# Seeders solo si no hay usuarios (primer deploy)
-USER_COUNT=$(php artisan tinker --execute="echo \App\Models\User::count();" 2>/dev/null | tr -dc '0-9')
+# Seeders solo si no hay usuarios — PDO directo, sin depender de tinker
+USER_COUNT=$(php -r "
+try {
+    \$pdo = new PDO(
+        'pgsql:host=' . getenv('DB_HOST') . ';port=' . (getenv('DB_PORT') ?: '5432') . ';dbname=' . getenv('DB_DATABASE'),
+        getenv('DB_USERNAME'),
+        getenv('DB_PASSWORD')
+    );
+    echo \$pdo->query('SELECT COUNT(*) FROM users')->fetchColumn();
+} catch (Exception \$e) {
+    echo 0;
+}
+" 2>/dev/null | tr -dc '0-9')
+
 if [ -z "$USER_COUNT" ] || [ "$USER_COUNT" -eq 0 ]; then
     echo "==> Ejecutando seeders (primer deploy)..."
-    php artisan db:seed --force
-    echo "   Seeders completados."
+    php artisan db:seed --force && echo "   Seeders completados." || echo "   Seeders con advertencias (continuando)."
 else
     echo "==> Seeders omitidos ($USER_COUNT usuarios ya existen)."
 fi
