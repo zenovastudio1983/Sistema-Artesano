@@ -148,7 +148,7 @@ class UserRolePermissionSeeder extends Seeder
             [
                 'name' => 'Administrador del Sistema',
                 'username' => 'admin',
-                'password' => Hash::make('Admin@ERP2024!'),
+                'password' => Hash::make('SistemaCFP2026'),
                 'email_verified_at' => now(),
                 'is_active' => true,
             ]
