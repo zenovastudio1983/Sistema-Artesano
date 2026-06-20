@@ -44,13 +44,8 @@ echo "==> Ejecutando migraciones..."
 php artisan migrate --force
 
 # Seeders solo si no hay usuarios (primer deploy)
-USER_COUNT=$(php -r "
-    require 'vendor/autoload.php';
-    \$app = require 'bootstrap/app.php';
-    \$app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
-    echo \Illuminate\Support\Facades\DB::table('users')->count();
-" 2>/dev/null || echo "0")
-if [ "$USER_COUNT" = "0" ]; then
+USER_COUNT=$(php artisan tinker --execute="echo \App\Models\User::count();" 2>/dev/null | tr -dc '0-9')
+if [ -z "$USER_COUNT" ] || [ "$USER_COUNT" -eq 0 ]; then
     echo "==> Ejecutando seeders (primer deploy)..."
     php artisan db:seed --force
     echo "   Seeders completados."
