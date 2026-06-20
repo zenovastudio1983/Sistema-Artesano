@@ -43,6 +43,21 @@ echo "   DB lista."
 echo "==> Ejecutando migraciones..."
 php artisan migrate --force
 
+# Seeders solo si no hay usuarios (primer deploy)
+USER_COUNT=$(php -r "
+    require 'vendor/autoload.php';
+    \$app = require 'bootstrap/app.php';
+    \$app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
+    echo \Illuminate\Support\Facades\DB::table('users')->count();
+" 2>/dev/null || echo "0")
+if [ "$USER_COUNT" = "0" ]; then
+    echo "==> Ejecutando seeders (primer deploy)..."
+    php artisan db:seed --force
+    echo "   Seeders completados."
+else
+    echo "==> Seeders omitidos ($USER_COUNT usuarios ya existen)."
+fi
+
 # Storage link
 echo "==> Configurando storage link..."
 php artisan storage:link --force || true
