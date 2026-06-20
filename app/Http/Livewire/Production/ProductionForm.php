@@ -7,6 +7,7 @@ use App\Domains\Production\Models\ProductionOrder;
 use App\Domains\Recipes\Models\Recipe;
 use App\Domains\Users\Models\User;
 use App\Support\Enums\ProductionOrderStatus;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -115,8 +116,10 @@ class ProductionForm extends Component
             $message = 'Orden actualizada.';
             $orderId = $this->orderId;
         } else {
-            $data['status']     = ProductionOrderStatus::Planned;
-            $data['created_by'] = auth()->id();
+            $seq = DB::selectOne("SELECT nextval('production_order_seq') AS seq")->seq;
+            $data['order_number'] = sprintf('OP-%s-%05d', now()->format('Y'), $seq);
+            $data['status']       = ProductionOrderStatus::Planned;
+            $data['created_by']   = auth()->id();
             $order = ProductionOrder::create($data);
             $orderId = $order->id;
             $message = 'Orden de producción creada.';
