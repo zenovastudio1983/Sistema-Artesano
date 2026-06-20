@@ -16,6 +16,9 @@ export default {
         { pattern: /border-(red|green|yellow|amber|blue|purple|orange|indigo|emerald|gray)-(200|300|400|500)/ },
         // Progress bars
         { pattern: /w-\d+\/\d+/ },
+        // Mobile sidebar slide animation (applied dynamically via Alpine :class)
+        '-translate-x-full',
+        'translate-x-0',
     ],
     theme: {
         extend: {

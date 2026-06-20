@@ -1,4 +1,7 @@
-<aside class="hidden lg:flex lg:flex-col w-64 bg-gray-900 flex-shrink-0">
+<aside class="flex flex-col w-64 bg-gray-900 flex-shrink-0
+              fixed inset-y-0 left-0 z-50 lg:static lg:z-auto
+              -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out"
+      :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'">
     {{-- Logo --}}
     <div class="flex items-center h-16 px-6 bg-gray-950 flex-shrink-0">
         <div class="flex items-center space-x-3">
@@ -51,6 +54,7 @@
             @else
                 @can($item['permission'])
                 <a href="{{ route($item['route']) }}"
+                   @click="sidebarOpen = false"
                    class="group flex items-center py-2 text-sm font-medium transition-colors duration-150
                           {{ request()->routeIs(rtrim($item['route'], '.index') . '*')
                               ? 'bg-indigo-500/20 text-white border-l-2 border-indigo-400 pl-[10px] pr-3 rounded-r-md'
