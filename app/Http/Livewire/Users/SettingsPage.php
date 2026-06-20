@@ -20,9 +20,9 @@ class SettingsPage extends Component
     public function mount(): void
     {
         $this->companyName     = config('erp.company_name', '');
-        $this->currencySymbol  = config('erp.currency_symbol', 'S/');
-        $this->currencyCode    = config('erp.currency_code', 'PEN');
-        $this->timezone        = config('app.timezone', 'America/Lima');
+        $this->currencySymbol  = config('erp.currency_symbol', '$');
+        $this->currencyCode    = config('erp.currency_code', 'ARS');
+        $this->timezone        = config('app.timezone', 'America/Argentina/Buenos_Aires');
         $this->dateFormat      = config('erp.date_format', 'd/m/Y');
     }
 

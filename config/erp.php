@@ -6,10 +6,10 @@ return [
     | ERP General Configuration
     |--------------------------------------------------------------------------
     */
-    'currency' => env('ERP_CURRENCY', 'PEN'),
-    'currency_symbol' => env('ERP_CURRENCY_SYMBOL', 'S/.'),
+    'currency' => env('ERP_CURRENCY', 'ARS'),
+    'currency_symbol' => env('ERP_CURRENCY_SYMBOL', '$'),
     'decimal_places' => (int) env('ERP_DECIMAL_PLACES', 2),
-    'tax_rate' => (float) env('ERP_TAX_RATE', 18),
+    'tax_rate' => (float) env('ERP_TAX_RATE', 21),
 
     /*
     |--------------------------------------------------------------------------

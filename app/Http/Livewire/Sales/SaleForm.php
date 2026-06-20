@@ -24,8 +24,8 @@ class SaleForm extends Component
     public string $dueDate = '';
     public string $reference = '';
     public string $notes = '';
-    public string $currency = 'PEN';
-    public string $taxRate = '18';
+    public string $currency = 'ARS';
+    public string $taxRate = '21';
     public string $discountPercent = '0';
 
     public array $items = [];
@@ -47,7 +47,7 @@ class SaleForm extends Component
             $this->dueDate         = $sale->due_date?->toDateString() ?? '';
             $this->reference       = $sale->reference ?? '';
             $this->notes           = $sale->notes ?? '';
-            $this->currency        = $sale->currency ?? 'PEN';
+            $this->currency        = $sale->currency ?? 'ARS';
             $this->taxRate         = (string) $sale->tax_rate;
             $this->discountPercent = (string) $sale->discount_percent;
 
