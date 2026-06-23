@@ -13,10 +13,10 @@ return new class extends Migration
         DB::statement("DROP VIEW IF EXISTS v_dashboard_kpis CASCADE");
         DB::statement("DROP VIEW IF EXISTS v_inventory_status CASCADE");
 
-        Schema::table('products', function (Blueprint $table) {
-            $table->string('sku', 50)->nullable()->unique()->change();
-            $table->string('unit', 20)->nullable()->default(null)->change();
-        });
+        // SQL directo para no re-crear constraints que ya existen
+        DB::statement("ALTER TABLE products ALTER COLUMN sku DROP NOT NULL");
+        DB::statement("ALTER TABLE products ALTER COLUMN unit DROP NOT NULL");
+        DB::statement("ALTER TABLE products ALTER COLUMN unit DROP DEFAULT");
 
         // Recrear v_inventory_status
         DB::statement("
@@ -78,10 +78,9 @@ return new class extends Migration
         DB::statement("DROP VIEW IF EXISTS v_dashboard_kpis CASCADE");
         DB::statement("DROP VIEW IF EXISTS v_inventory_status CASCADE");
 
-        Schema::table('products', function (Blueprint $table) {
-            $table->string('sku', 50)->nullable(false)->change();
-            $table->string('unit', 20)->nullable(false)->default('und')->change();
-        });
+        DB::statement("ALTER TABLE products ALTER COLUMN sku SET NOT NULL");
+        DB::statement("ALTER TABLE products ALTER COLUMN unit SET NOT NULL");
+        DB::statement("ALTER TABLE products ALTER COLUMN unit SET DEFAULT 'und'");
 
         DB::statement("
             CREATE OR REPLACE VIEW v_inventory_status AS
