@@ -9,15 +9,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // v_inventory_status depende de products.sku — hay que eliminarla antes de alterar la columna
-        DB::statement("DROP VIEW IF EXISTS v_inventory_status");
+        // v_dashboard_kpis depende de v_inventory_status — usar CASCADE elimina ambas
+        DB::statement("DROP VIEW IF EXISTS v_dashboard_kpis CASCADE");
+        DB::statement("DROP VIEW IF EXISTS v_inventory_status CASCADE");
 
         Schema::table('products', function (Blueprint $table) {
             $table->string('sku', 50)->nullable()->unique()->change();
             $table->string('unit', 20)->nullable()->default(null)->change();
         });
 
-        // Recrear la vista tal como estaba
+        // Recrear v_inventory_status
         DB::statement("
             CREATE OR REPLACE VIEW v_inventory_status AS
             SELECT
@@ -47,11 +48,35 @@ return new class extends Migration
             WHERE p.deleted_at IS NULL
             GROUP BY p.id, p.sku, p.name, p.type, c.name, p.unit, p.stock_minimum, p.cost, p.status
         ");
+
+        // Recrear v_dashboard_kpis (depende de v_inventory_status)
+        DB::statement("
+            CREATE OR REPLACE VIEW v_dashboard_kpis AS
+            SELECT
+                COALESCE(SUM(CASE WHEN s.status IN ('confirmed','invoiced','paid')
+                    AND DATE_TRUNC('month', s.sale_date) = DATE_TRUNC('month', CURRENT_DATE)
+                    THEN s.total ELSE 0 END), 0) AS monthly_sales,
+                COALESCE(SUM(CASE WHEN s.status IN ('confirmed','invoiced','paid')
+                    AND DATE_TRUNC('month', s.sale_date) = DATE_TRUNC('month', CURRENT_DATE)
+                    THEN s.cost_of_goods ELSE 0 END), 0) AS monthly_cost_of_goods,
+                COALESCE(SUM(CASE WHEN s.status IN ('confirmed','invoiced','paid')
+                    AND DATE_TRUNC('month', s.sale_date) = DATE_TRUNC('month', CURRENT_DATE)
+                    THEN s.gross_profit ELSE 0 END), 0) AS monthly_gross_profit,
+                COALESCE(SUM(CASE WHEN s.status IN ('confirmed','invoiced','paid')
+                    AND DATE_PART('year', s.sale_date) = DATE_PART('year', CURRENT_DATE)
+                    THEN s.total ELSE 0 END), 0) AS yearly_sales,
+                (SELECT COUNT(*) FROM purchase_orders WHERE status IN ('draft','sent')) AS pending_purchases,
+                (SELECT COUNT(*) FROM production_orders WHERE status IN ('planned','in_progress')) AS active_production_orders,
+                (SELECT COUNT(*) FROM v_inventory_status WHERE stock_status IN ('critical','out_of_stock') AND product_status = 'active') AS critical_stock_count
+            FROM sales s
+            WHERE s.deleted_at IS NULL
+        ");
     }
 
     public function down(): void
     {
-        DB::statement("DROP VIEW IF EXISTS v_inventory_status");
+        DB::statement("DROP VIEW IF EXISTS v_dashboard_kpis CASCADE");
+        DB::statement("DROP VIEW IF EXISTS v_inventory_status CASCADE");
 
         Schema::table('products', function (Blueprint $table) {
             $table->string('sku', 50)->nullable(false)->change();
@@ -86,6 +111,28 @@ return new class extends Migration
                 AND i.warehouse_id IN (SELECT id FROM warehouses WHERE is_active = TRUE)
             WHERE p.deleted_at IS NULL
             GROUP BY p.id, p.sku, p.name, p.type, c.name, p.unit, p.stock_minimum, p.cost, p.status
+        ");
+
+        DB::statement("
+            CREATE OR REPLACE VIEW v_dashboard_kpis AS
+            SELECT
+                COALESCE(SUM(CASE WHEN s.status IN ('confirmed','invoiced','paid')
+                    AND DATE_TRUNC('month', s.sale_date) = DATE_TRUNC('month', CURRENT_DATE)
+                    THEN s.total ELSE 0 END), 0) AS monthly_sales,
+                COALESCE(SUM(CASE WHEN s.status IN ('confirmed','invoiced','paid')
+                    AND DATE_TRUNC('month', s.sale_date) = DATE_TRUNC('month', CURRENT_DATE)
+                    THEN s.cost_of_goods ELSE 0 END), 0) AS monthly_cost_of_goods,
+                COALESCE(SUM(CASE WHEN s.status IN ('confirmed','invoiced','paid')
+                    AND DATE_TRUNC('month', s.sale_date) = DATE_TRUNC('month', CURRENT_DATE)
+                    THEN s.gross_profit ELSE 0 END), 0) AS monthly_gross_profit,
+                COALESCE(SUM(CASE WHEN s.status IN ('confirmed','invoiced','paid')
+                    AND DATE_PART('year', s.sale_date) = DATE_PART('year', CURRENT_DATE)
+                    THEN s.total ELSE 0 END), 0) AS yearly_sales,
+                (SELECT COUNT(*) FROM purchase_orders WHERE status IN ('draft','sent')) AS pending_purchases,
+                (SELECT COUNT(*) FROM production_orders WHERE status IN ('planned','in_progress')) AS active_production_orders,
+                (SELECT COUNT(*) FROM v_inventory_status WHERE stock_status IN ('critical','out_of_stock') AND product_status = 'active') AS critical_stock_count
+            FROM sales s
+            WHERE s.deleted_at IS NULL
         ");
     }
 };
