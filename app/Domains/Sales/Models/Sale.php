@@ -14,6 +14,17 @@ class Sale extends Model
 {
     use SoftDeletes, LogsActivity;
 
+    protected static function booted(): void
+    {
+        static::creating(function (self $model) {
+            if (empty($model->order_number)) {
+                $year = now()->year;
+                $count = static::withTrashed()->whereYear('created_at', $year)->count();
+                $model->order_number = 'VTA-' . $year . '-' . str_pad($count + 1, 4, '0', STR_PAD_LEFT);
+            }
+        });
+    }
+
     protected $fillable = [
         'order_number', 'status', 'type', 'customer_id', 'warehouse_id', 'sale_date',
         'due_date', 'delivery_date', 'confirmed_at', 'subtotal', 'discount_percent',

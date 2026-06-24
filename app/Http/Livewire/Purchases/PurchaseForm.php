@@ -24,8 +24,8 @@ class PurchaseForm extends Component
     public string $expectedDate = '';
     public string $reference = '';
     public string $notes = '';
-    public string $currency = 'PEN';
-    public string $taxRate = '18';
+    public string $currency = 'ARS';
+    public string $taxRate = '21';
     public string $shippingCost = '0';
 
     public array $items = [];
@@ -46,7 +46,7 @@ class PurchaseForm extends Component
             $this->expectedDate = $order->expected_date?->toDateString() ?? '';
             $this->reference = $order->reference ?? '';
             $this->notes = $order->notes ?? '';
-            $this->currency = $order->currency ?? 'PEN';
+            $this->currency = $order->currency ?? 'ARS';
             $this->taxRate = (string) $order->tax_rate;
             $this->shippingCost = (string) $order->shipping_cost;
 

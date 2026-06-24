@@ -48,7 +48,7 @@ class AdjustStock extends Component
             'product_id'       => $this->productId,
             'warehouse_id'     => $this->warehouseId,
             'quantity'         => abs((float) $this->quantity),
-            'unit_cost'        => $this->unitCost ? (float) $this->unitCost : null,
+            'unit_cost'        => $this->unitCost !== '' ? (float) $this->unitCost : 0,
             'reference_number' => $this->reference ?: null,
             'notes'            => $this->notes ?: null,
             'created_by'       => auth()->id(),

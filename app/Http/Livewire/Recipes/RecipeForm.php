@@ -18,7 +18,7 @@ class RecipeForm extends Component
     public int $productId = 0;
     public string $name = '';
     public string $description = '';
-    public string $version = '1.0';
+    public string $version = '1';
     public string $yieldQuantity = '';
     public string $yieldUnit = '';
     public int $productionTimeMinutes = 0;
@@ -42,7 +42,7 @@ class RecipeForm extends Component
             $this->productId              = $recipe->product_id;
             $this->name                   = $recipe->name;
             $this->description            = $recipe->description ?? '';
-            $this->version                = $recipe->version ?? '1.0';
+            $this->version                = (string) ($recipe->version ?? 1);
             $this->yieldQuantity          = (string) $recipe->yield_quantity;
             $this->yieldUnit              = $recipe->yield_unit ?? '';
             $this->productionTimeMinutes  = $recipe->production_time_minutes ?? 0;
@@ -145,7 +145,7 @@ class RecipeForm extends Component
             'description'              => $this->description ?: null,
             'version'                  => $this->version,
             'yield_quantity'           => (float) $this->yieldQuantity,
-            'yield_unit'               => $this->yieldUnit ?: null,
+            'yield_unit'               => $this->yieldUnit ?: 'und',
             'production_time_minutes'  => $this->productionTimeMinutes,
             'labor_cost'               => (float) $this->laborCost,
             'overhead_cost'            => (float) $this->overheadCost,

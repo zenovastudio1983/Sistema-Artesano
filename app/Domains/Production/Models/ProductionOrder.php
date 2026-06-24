@@ -16,6 +16,17 @@ class ProductionOrder extends Model
 {
     use SoftDeletes, LogsActivity;
 
+    protected static function booted(): void
+    {
+        static::creating(function (self $model) {
+            if (empty($model->order_number)) {
+                $year = now()->year;
+                $count = static::withTrashed()->whereYear('created_at', $year)->count();
+                $model->order_number = sprintf('OP-%s-%05d', $year, $count + 1);
+            }
+        });
+    }
+
     protected $fillable = [
         'order_number', 'status', 'product_id', 'recipe_id', 'warehouse_id',
         'planned_quantity', 'produced_quantity', 'rejected_quantity',

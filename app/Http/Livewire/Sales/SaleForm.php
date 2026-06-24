@@ -123,6 +123,8 @@ class SaleForm extends Component
     public function save(): void
     {
         $this->validate([
+            'customerId'  => 'required|exists:customers,id',
+            'warehouseId' => 'required|exists:warehouses,id',
             'saleDate'    => 'required|date',
             'items'       => 'required|array|min:1',
             'items.*.product_id' => 'required|exists:products,id',
@@ -133,8 +135,8 @@ class SaleForm extends Component
         $this->recalculate();
 
         $data = [
-            'customer_id'      => $this->customerId ?: null,
-            'warehouse_id'     => $this->warehouseId ?: null,
+            'customer_id'      => $this->customerId,
+            'warehouse_id'     => $this->warehouseId,
             'sale_date'        => $this->saleDate,
             'due_date'         => $this->dueDate ?: null,
             'reference'        => $this->reference ?: null,

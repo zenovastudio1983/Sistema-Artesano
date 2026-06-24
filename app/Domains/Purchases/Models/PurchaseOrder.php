@@ -14,6 +14,17 @@ class PurchaseOrder extends Model
 {
     use SoftDeletes, LogsActivity;
 
+    protected static function booted(): void
+    {
+        static::creating(function (self $model) {
+            if (empty($model->order_number)) {
+                $year = now()->year;
+                $count = static::withTrashed()->whereYear('created_at', $year)->count();
+                $model->order_number = 'OC-' . $year . '-' . str_pad($count + 1, 4, '0', STR_PAD_LEFT);
+            }
+        });
+    }
+
     protected $fillable = [
         'order_number', 'status', 'supplier_id', 'warehouse_id', 'order_date',
         'expected_date', 'received_date', 'subtotal', 'tax_rate', 'tax_amount',

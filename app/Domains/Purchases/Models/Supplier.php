@@ -9,6 +9,16 @@ class Supplier extends Model
 {
     use SoftDeletes;
 
+    protected static function booted(): void
+    {
+        static::creating(function (self $model) {
+            if (empty($model->code)) {
+                $max = static::withTrashed()->count();
+                $model->code = 'PROV-' . str_pad($max + 1, 4, '0', STR_PAD_LEFT);
+            }
+        });
+    }
+
     protected $fillable = [
         'code', 'business_name', 'trade_name', 'tax_id', 'tax_type', 'email', 'phone',
         'mobile', 'website', 'address', 'city', 'country', 'contact_name',
