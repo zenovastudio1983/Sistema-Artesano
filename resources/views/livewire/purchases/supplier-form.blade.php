@@ -84,9 +84,9 @@
                 <div>
                     <label class="form-label">Moneda</label>
                     <select wire:model="currency" class="form-input">
-                        <option value="PEN">PEN - Sol</option>
-                        <option value="USD">USD - Dólar</option>
-                        <option value="EUR">EUR - Euro</option>
+                        <option value="ARS">ARS — Peso argentino</option>
+                        <option value="USD">USD — Dólar</option>
+                        <option value="EUR">EUR — Euro</option>
                     </select>
                 </div>
                 <div class="sm:col-span-3">

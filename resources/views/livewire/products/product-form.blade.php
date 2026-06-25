@@ -92,13 +92,13 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
                         <div>
-                            <label class="form-label">Costo estándar (S/)</label>
+                            <label class="form-label">Costo estándar ({{ config('erp.currency_symbol') }})</label>
                             <input wire:model.blur="cost" type="number" step="0.0001" min="0" class="form-input">
                             @error('cost') <p class="form-error">{{ $message }}</p> @enderror
                         </div>
 
                         <div>
-                            <label class="form-label">Precio de venta (S/)</label>
+                            <label class="form-label">Precio de venta ({{ config('erp.currency_symbol') }})</label>
                             <input wire:model.blur="price" type="number" step="0.0001" min="0" class="form-input">
                             @error('price') <p class="form-error">{{ $message }}</p> @enderror
                         </div>
@@ -109,12 +109,12 @@
                         </div>
 
                         <div>
-                            <label class="form-label">Precio mínimo (S/)</label>
+                            <label class="form-label">Precio mínimo ({{ config('erp.currency_symbol') }})</label>
                             <input wire:model="minPrice" type="number" step="0.0001" min="0" class="form-input">
                         </div>
 
                         <div>
-                            <label class="form-label">Costo estándar real (S/)</label>
+                            <label class="form-label">Costo estándar real ({{ config('erp.currency_symbol') }})</label>
                             <input wire:model="standardCost" type="number" step="0.0001" min="0" class="form-input">
                         </div>
 

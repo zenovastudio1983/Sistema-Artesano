@@ -67,8 +67,11 @@ fi
 echo "==> Configurando storage link..."
 php artisan storage:link --force || true
 
-# Cachear para producción
+# Cachear para producción (limpiar primero para evitar caches obsoletos)
 echo "==> Cacheando configuración..."
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache

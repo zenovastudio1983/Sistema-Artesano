@@ -250,7 +250,7 @@
                     <a href="{{ route('inventory.adjust') }}?productId={{ $product->id }}" class="btn-secondary text-sm text-center">
                         Ajustar stock
                     </a>
-                    <a href="{{ route('inventory.kardex') }}?productId={{ $product->id }}" class="btn-secondary text-sm text-center">
+                    <a href="{{ route('inventory.kardex', $product) }}" class="btn-secondary text-sm text-center">
                         Ver kardex
                     </a>
                     @if($product->is_producible)

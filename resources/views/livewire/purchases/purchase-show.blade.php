@@ -82,7 +82,7 @@
                     @endif
                     <div>
                         <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Moneda</p>
-                        <p class="font-medium text-gray-900">{{ $order->currency ?? 'PEN' }}</p>
+                        <p class="font-medium text-gray-900">{{ $order->currency ?? 'ARS' }}</p>
                     </div>
                 </div>
 
