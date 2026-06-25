@@ -4,9 +4,9 @@
             <div class="flex items-center gap-2 text-sm text-gray-500 mb-1">
                 <a href="{{ route('sales.index') }}" class="hover:text-gray-700">Ventas</a>
                 <span>/</span>
-                <span>{{ $sale->sale_number }}</span>
+                <span>{{ $sale->order_number }}</span>
             </div>
-            <h1 class="page-title">Venta {{ $sale->sale_number }}</h1>
+            <h1 class="page-title">Venta {{ $sale->order_number }}</h1>
         </div>
         <div class="flex gap-2">
             @if(in_array($sale->status->value, ['quotation', 'confirmed']))
@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="flex items-start justify-between mb-6">
                     <div>
-                        <h2 class="text-lg font-semibold text-gray-900">{{ $sale->sale_number }}</h2>
+                        <h2 class="text-lg font-semibold text-gray-900">{{ $sale->order_number }}</h2>
                         <p class="text-sm text-gray-500">{{ $sale->sale_date->format('d/m/Y') }}</p>
                     </div>
                     @php

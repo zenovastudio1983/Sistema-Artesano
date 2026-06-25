@@ -159,7 +159,6 @@ class PurchaseForm extends Component
             $q = (float) $item['quantity'];
             $p = (float) $item['unit_price'];
             $d = (float) ($item['discount_percent'] ?? 0);
-            $subtotal = round($q * $p * (1 - $d / 100), 4);
 
             PurchaseOrderItem::create([
                 'purchase_order_id' => $order->id,
@@ -168,7 +167,6 @@ class PurchaseForm extends Component
                 'quantity'          => $q,
                 'unit_price'        => $p,
                 'discount_percent'  => $d,
-                'subtotal'          => $subtotal,
             ]);
         }
 
