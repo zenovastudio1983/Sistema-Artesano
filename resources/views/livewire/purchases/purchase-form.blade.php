@@ -113,7 +113,7 @@
                                             <label class="form-label text-xs">Cantidad</label>
                                         @endif
                                         <input wire:model.blur="items.{{ $index }}.quantity"
-                                               type="number" step="0.001" min="0"
+                                               type="number" step="1" min="0"
                                                class="form-input text-sm text-right">
                                         @error("items.{$index}.quantity") <p class="form-error text-xs">{{ $message }}</p> @enderror
                                     </div>

@@ -47,7 +47,7 @@
 
                         <div>
                             <label class="form-label">Cantidad planificada <span class="text-red-500">*</span></label>
-                            <input wire:model.blur="plannedQuantity" type="number" step="0.001" min="0" class="form-input">
+                            <input wire:model.blur="plannedQuantity" type="number" step="1" min="0" class="form-input">
                             @error('plannedQuantity') <p class="form-error">{{ $message }}</p> @enderror
                         </div>
 

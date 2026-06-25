@@ -28,8 +28,8 @@
                     <input wire:model="trade_name" type="text" class="form-input">
                 </div>
                 <div>
-                    <label class="form-label">RUC / NIF</label>
-                    <input wire:model="tax_id" type="text" class="form-input font-mono">
+                    <label class="form-label">CUIT / CUIL</label>
+                    <input wire:model="tax_id" type="text" class="form-input font-mono" placeholder="XX-XXXXXXXX-X">
                 </div>
                 <div>
                     <label class="form-label">Email</label>

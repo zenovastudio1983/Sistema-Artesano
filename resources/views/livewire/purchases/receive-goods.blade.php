@@ -84,7 +84,7 @@
                                         <td class="py-4 px-4">
                                             @if($rec['pending'] > 0)
                                                 <input wire:model="receiving.{{ $itemId }}.now"
-                                                       type="number" step="0.001" min="0" max="{{ $rec['pending'] }}"
+                                                       type="number" step="1" min="0" max="{{ $rec['pending'] }}"
                                                        class="form-input text-right w-24 ml-auto">
                                             @else
                                                 <span class="block text-right text-gray-400 pr-1">Completo</span>
