@@ -156,7 +156,7 @@
                     </div>
                     @if($order->tax_rate > 0)
                         <div class="flex justify-between">
-                            <span class="text-gray-500">IGV ({{ $order->tax_rate }}%)</span>
+                            <span class="text-gray-500">IVA ({{ $order->tax_rate }}%)</span>
                             <span class="font-medium">{{ number_format($order->tax_amount, 2) }}</span>
                         </div>
                     @endif

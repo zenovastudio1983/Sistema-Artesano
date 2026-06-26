@@ -39,11 +39,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label class="form-label">Símbolo</label>
-                    <input type="text" class="form-input font-mono" value="{{ config('erp.currency_symbol', 'S/') }}" readonly>
+                    <input type="text" class="form-input font-mono" value="{{ config('erp.currency_symbol', '$') }}" readonly>
                 </div>
                 <div>
                     <label class="form-label">Código</label>
-                    <input type="text" class="form-input font-mono" value="{{ config('erp.currency_code', 'PEN') }}" readonly>
+                    <input type="text" class="form-input font-mono" value="{{ config('erp.currency_code', 'ARS') }}" readonly>
                 </div>
             </div>
             <p class="text-xs text-gray-400 mt-3">Configurable en config/erp.php o .env</p>

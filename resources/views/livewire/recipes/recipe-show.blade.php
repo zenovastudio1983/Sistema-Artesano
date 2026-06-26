@@ -113,10 +113,10 @@
                                         {{ $ingredient->scrap_percentage > 0 ? $ingredient->scrap_percentage . '%' : '—' }}
                                     </td>
                                     <td class="py-3 px-4 text-right text-gray-700">
-                                        S/ {{ number_format($ingredient->unit_cost, 4) }}
+                                        {{ config('erp.currency_symbol') }} {{ number_format($ingredient->unit_cost, 4) }}
                                     </td>
                                     <td class="py-3 pl-4 text-right font-medium text-gray-900">
-                                        S/ {{ number_format($ingredient->total_cost ?? ($ingredient->quantity * (1 + $ingredient->scrap_percentage / 100) * $ingredient->unit_cost), 4) }}
+                                        {{ config('erp.currency_symbol') }} {{ number_format($ingredient->total_cost ?? ($ingredient->quantity * (1 + $ingredient->scrap_percentage / 100) * $ingredient->unit_cost), 4) }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -135,23 +135,23 @@
                 <div class="space-y-3 text-sm">
                     <div class="flex justify-between">
                         <span class="text-gray-500">Materiales</span>
-                        <span class="font-medium">S/ {{ number_format($recipe->material_cost, 2) }}</span>
+                        <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($recipe->material_cost, 2) }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-500">Mano de obra</span>
-                        <span class="font-medium">S/ {{ number_format($recipe->labor_cost, 2) }}</span>
+                        <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($recipe->labor_cost, 2) }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-500">Gastos generales</span>
-                        <span class="font-medium">S/ {{ number_format($recipe->overhead_cost, 2) }}</span>
+                        <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($recipe->overhead_cost, 2) }}</span>
                     </div>
                     <div class="flex justify-between pt-2 border-t border-gray-100">
                         <span class="font-semibold text-gray-900">Costo total lote</span>
-                        <span class="font-bold text-gray-900">S/ {{ number_format($recipe->total_cost, 2) }}</span>
+                        <span class="font-bold text-gray-900">{{ config('erp.currency_symbol') }} {{ number_format($recipe->total_cost, 2) }}</span>
                     </div>
                     <div class="flex justify-between pt-2 border-t border-gray-100 text-indigo-700">
                         <span class="font-semibold">Costo unitario</span>
-                        <span class="font-bold text-lg">S/ {{ number_format($recipe->unit_cost, 4) }}</span>
+                        <span class="font-bold text-lg">{{ config('erp.currency_symbol') }} {{ number_format($recipe->unit_cost, 4) }}</span>
                     </div>
                 </div>
 

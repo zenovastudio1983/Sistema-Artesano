@@ -18,7 +18,7 @@ return [
     */
     'company' => [
         'name' => env('ERP_COMPANY_NAME', 'Mi Taller Artesanal'),
-        'ruc' => env('ERP_COMPANY_RUC', ''),
+        'cuit' => env('ERP_COMPANY_CUIT', ''),
         'address' => env('ERP_COMPANY_ADDRESS', ''),
         'phone' => env('ERP_COMPANY_PHONE', ''),
         'email' => env('ERP_COMPANY_EMAIL', ''),

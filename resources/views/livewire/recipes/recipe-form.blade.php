@@ -162,7 +162,7 @@
                                             <input wire:model="ingredients.{{ $index }}.is_optional" type="checkbox" class="w-3 h-3 rounded">
                                             opcional
                                         </label>
-                                        <span>Costo línea: <span class="font-semibold text-gray-700">S/ {{ number_format($ing['total_cost'] ?? 0, 4) }}</span></span>
+                                        <span>Costo línea: <span class="font-semibold text-gray-700">{{ config('erp.currency_symbol') }} {{ number_format($ing['total_cost'] ?? 0, 4) }}</span></span>
                                     </div>
 
                                 </div>
@@ -185,11 +185,11 @@
                     <h3 class="text-sm font-semibold text-gray-700 mb-4">Costos adicionales</h3>
                     <div class="space-y-3">
                         <div>
-                            <label class="form-label">Mano de obra (S/)</label>
+                            <label class="form-label">Mano de obra ({{ config('erp.currency_symbol') }})</label>
                             <input wire:model.blur="laborCost" type="number" step="0.01" min="0" class="form-input">
                         </div>
                         <div>
-                            <label class="form-label">Gastos generales (S/)</label>
+                            <label class="form-label">Gastos generales ({{ config('erp.currency_symbol') }})</label>
                             <input wire:model.blur="overheadCost" type="number" step="0.01" min="0" class="form-input">
                         </div>
                     </div>
@@ -200,23 +200,23 @@
                     <div class="space-y-2 text-sm">
                         <div class="flex justify-between">
                             <span class="text-gray-500">Materiales</span>
-                            <span class="font-medium">S/ {{ number_format($materialCost, 2) }}</span>
+                            <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($materialCost, 2) }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-500">Mano de obra</span>
-                            <span class="font-medium">S/ {{ number_format($laborCost, 2) }}</span>
+                            <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($laborCost, 2) }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-500">G. generales</span>
-                            <span class="font-medium">S/ {{ number_format($overheadCost, 2) }}</span>
+                            <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($overheadCost, 2) }}</span>
                         </div>
                         <div class="flex justify-between pt-2 border-t border-gray-200">
                             <span class="font-bold text-gray-900">Total lote</span>
-                            <span class="font-bold text-gray-900">S/ {{ number_format($totalCost, 2) }}</span>
+                            <span class="font-bold text-gray-900">{{ config('erp.currency_symbol') }} {{ number_format($totalCost, 2) }}</span>
                         </div>
                         <div class="flex justify-between pt-2 border-t border-gray-200 text-indigo-700">
                             <span class="font-bold">Costo unitario</span>
-                            <span class="font-bold text-lg">S/ {{ number_format($unitCost, 4) }}</span>
+                            <span class="font-bold text-lg">{{ config('erp.currency_symbol') }} {{ number_format($unitCost, 4) }}</span>
                         </div>
                     </div>
                 </div>

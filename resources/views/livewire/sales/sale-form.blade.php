@@ -169,7 +169,7 @@
                             <input wire:model.blur="discountPercent" type="number" step="0.01" min="0" max="100" class="form-input">
                         </div>
                         <div>
-                            <label class="form-label">IGV (%)</label>
+                            <label class="form-label">IVA (%)</label>
                             <input wire:model.blur="taxRate" type="number" step="0.01" min="0" class="form-input">
                         </div>
                     </div>
@@ -189,7 +189,7 @@
                             </div>
                         @endif
                         <div class="flex justify-between">
-                            <span class="text-gray-500">IGV ({{ $taxRate }}%)</span>
+                            <span class="text-gray-500">IVA ({{ $taxRate }}%)</span>
                             <span class="font-medium">{{ number_format($taxAmount, 2) }}</span>
                         </div>
                         <div class="flex justify-between pt-2 border-t border-gray-200">

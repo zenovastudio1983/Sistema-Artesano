@@ -30,10 +30,9 @@ class SettingsPage extends Component
     {
         return view('livewire.users.settings-page', [
             'timezones' => [
-                'America/Lima' => 'Lima (PEN, UTC-5)',
-                'America/Bogota' => 'Bogotá (COP, UTC-5)',
+                'America/Argentina/Buenos_Aires' => 'Buenos Aires (ARS, UTC-3)',
                 'America/Santiago' => 'Santiago (CLP, UTC-3/-4)',
-                'America/Buenos_Aires' => 'Buenos Aires (ARS, UTC-3)',
+                'America/Bogota' => 'Bogotá (COP, UTC-5)',
                 'America/Mexico_City' => 'Ciudad de México (MXN, UTC-6)',
                 'Europe/Madrid' => 'Madrid (EUR, UTC+1/+2)',
             ],
