@@ -64,45 +64,60 @@
         </div>
 
         {{-- Producción del mes --}}
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-gradient-to-br from-violet-500 to-purple-800 rounded-xl shadow-sm p-6">
             <div class="flex items-center justify-between mb-4">
-                <div class="p-2 bg-purple-50 rounded-lg">
-                    <svg class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="p-2 bg-white/20 rounded-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                     </svg>
                 </div>
-                <span class="inline-flex items-center text-xs font-medium text-purple-700 bg-purple-50 rounded-full px-2 py-0.5">
+                <span class="inline-flex items-center text-xs font-medium text-white bg-white/20 rounded-full px-2 py-0.5">
                     {{ $kpis['active_production_orders'] }} activas
                 </span>
             </div>
-            <p class="text-2xl font-bold text-gray-900">
-                {{ number_format($kpis['monthly_produced_units']) }} <span class="text-sm font-normal text-gray-400">und</span>
+            <p class="text-2xl font-bold text-white">
+                {{ number_format($kpis['monthly_produced_units']) }} <span class="text-sm font-normal text-purple-200">und</span>
             </p>
-            <p class="text-sm text-gray-500 mt-1">Producción del mes</p>
-            <p class="text-xs text-gray-400 mt-1">Costo: {{ config('erp.currency_symbol') }} {{ number_format($kpis['monthly_production_cost'], 2) }}</p>
+            <p class="text-sm text-purple-100 mt-1">Producción del mes</p>
+            <p class="text-xs text-purple-200 mt-1">Costo: {{ config('erp.currency_symbol') }} {{ number_format($kpis['monthly_production_cost'], 2) }}</p>
         </div>
 
         {{-- Alertas de Stock --}}
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        @if($kpis['critical_stock_count'] + $kpis['low_stock_count'] > 0)
+        <div class="bg-gradient-to-br from-orange-500 to-red-700 rounded-xl shadow-sm p-6">
             <div class="flex items-center justify-between mb-4">
-                <div class="p-2 {{ $kpis['critical_stock_count'] > 0 ? 'bg-red-50' : 'bg-gray-50' }} rounded-lg">
-                    <svg class="w-6 h-6 {{ $kpis['critical_stock_count'] > 0 ? 'text-red-600' : 'text-gray-400' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="p-2 bg-white/20 rounded-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.07 16.5c-.77.833.192 2.5 1.732 2.5z"/>
                     </svg>
                 </div>
                 @if($kpis['critical_stock_count'] > 0)
-                    <span class="inline-flex items-center text-xs font-medium text-red-700 bg-red-50 rounded-full px-2 py-0.5">
+                    <span class="inline-flex items-center text-xs font-medium text-white bg-white/20 rounded-full px-2 py-0.5">
                         {{ $kpis['critical_stock_count'] }} críticos
                     </span>
                 @endif
             </div>
-            <p class="text-2xl font-bold text-gray-900">{{ $kpis['critical_stock_count'] + $kpis['low_stock_count'] }}</p>
-            <p class="text-sm text-gray-500 mt-1">Alertas de stock</p>
-            <a href="{{ route('inventory.index') }}" class="text-xs text-indigo-600 hover:text-indigo-800 mt-1 inline-block">
+            <p class="text-2xl font-bold text-white">{{ $kpis['critical_stock_count'] + $kpis['low_stock_count'] }}</p>
+            <p class="text-sm text-orange-100 mt-1">Alertas de stock</p>
+            <a href="{{ route('inventory.index') }}" class="text-xs text-white/80 hover:text-white mt-1 inline-block">
                 Ver inventario →
             </a>
         </div>
+        @else
+        <div class="bg-gradient-to-br from-teal-500 to-emerald-700 rounded-xl shadow-sm p-6">
+            <div class="flex items-center justify-between mb-4">
+                <div class="p-2 bg-white/20 rounded-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+            </div>
+            <p class="text-2xl font-bold text-white">0</p>
+            <p class="text-sm text-teal-100 mt-1">Alertas de stock</p>
+            <p class="text-xs text-teal-200 mt-1">Stock en niveles óptimos</p>
+        </div>
+        @endif
     </div>
 
     {{-- Row 2: Compras pendientes + Valor inventario --}}
