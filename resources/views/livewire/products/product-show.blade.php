@@ -180,30 +180,24 @@
             <div class="card">
                 <h3 class="text-sm font-semibold text-gray-700 mb-4">Costos y precios</h3>
                 <div class="space-y-3 text-sm">
-                    @if($product->cost)
-                        <div class="flex justify-between">
-                            <span class="text-gray-500">Costo</span>
-                            <span class="font-medium">S/ {{ number_format($product->cost, 4) }}</span>
-                        </div>
-                    @endif
-                    @if($product->average_cost)
-                        <div class="flex justify-between">
-                            <span class="text-gray-500">Costo prom.</span>
-                            <span class="font-medium">S/ {{ number_format($product->average_cost, 4) }}</span>
-                        </div>
-                    @endif
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Costo estándar</span>
+                        <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($product->cost ?? 0, 4) }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Costo promedio</span>
+                        <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($product->average_cost ?? 0, 4) }}</span>
+                    </div>
                     @if($product->last_purchase_cost)
                         <div class="flex justify-between">
                             <span class="text-gray-500">Último costo compra</span>
-                            <span class="font-medium">S/ {{ number_format($product->last_purchase_cost, 4) }}</span>
+                            <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($product->last_purchase_cost, 4) }}</span>
                         </div>
                     @endif
-                    @if($product->price)
-                        <div class="flex justify-between pt-2 border-t border-gray-100">
-                            <span class="font-semibold text-gray-900">Precio venta</span>
-                            <span class="font-bold text-indigo-700">S/ {{ number_format($product->price, 2) }}</span>
-                        </div>
-                    @endif
+                    <div class="flex justify-between pt-2 border-t border-gray-100">
+                        <span class="font-semibold text-gray-900">Precio venta</span>
+                        <span class="font-bold text-indigo-700">{{ config('erp.currency_symbol') }} {{ number_format($product->price ?? 0, 2) }}</span>
+                    </div>
                     @if($product->price && $product->cost)
                         <div class="flex justify-between">
                             <span class="text-gray-500">Margen</span>

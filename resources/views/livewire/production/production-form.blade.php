@@ -38,7 +38,7 @@
                                         <p class="font-medium text-indigo-900">{{ $selectedRecipe->name }}</p>
                                         <p class="text-indigo-600 text-xs mt-0.5">
                                             Rendimiento: {{ $selectedRecipe->yield_quantity }} {{ $selectedRecipe->yield_unit }} ·
-                                            Costo unit.: S/ {{ number_format($selectedRecipe->unit_cost, 4) }}
+                                            Costo unit.: {{ config('erp.currency_symbol') }} {{ number_format($selectedRecipe->unit_cost, 4) }}
                                         </p>
                                     </div>
                                 </div>
@@ -102,11 +102,11 @@
                         <div class="space-y-2 text-sm">
                             <div class="flex justify-between">
                                 <span class="text-gray-500">Materiales</span>
-                                <span class="font-medium">S/ {{ number_format($estimatedMaterialCost, 2) }}</span>
+                                <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($estimatedMaterialCost, 2) }}</span>
                             </div>
                             <div class="flex justify-between pt-2 border-t border-gray-200">
                                 <span class="font-bold text-gray-900">Total estimado</span>
-                                <span class="font-bold text-indigo-700">S/ {{ number_format($estimatedTotalCost, 2) }}</span>
+                                <span class="font-bold text-indigo-700">{{ config('erp.currency_symbol') }} {{ number_format($estimatedTotalCost, 2) }}</span>
                             </div>
                         </div>
                         <div class="mt-3 pt-3 border-t border-gray-200 text-xs text-gray-400">

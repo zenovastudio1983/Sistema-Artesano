@@ -124,7 +124,7 @@
                         </div>
                         <div class="flex justify-between">
                             <span class="text-indigo-700">Total orden</span>
-                            <span class="font-medium text-indigo-900">{{ $order->currency ?? 'S/' }} {{ number_format($order->total, 2) }}</span>
+                            <span class="font-medium text-indigo-900">{{ $order->currency ?? config('erp.currency_symbol') }} {{ number_format($order->total, 2) }}</span>
                         </div>
                     </div>
                 </div>

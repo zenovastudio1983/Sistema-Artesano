@@ -159,7 +159,7 @@
                     @endif
                     <div class="flex justify-between pt-2 border-t border-gray-100">
                         <span class="font-semibold text-gray-900">Total</span>
-                        <span class="font-bold text-lg text-gray-900">{{ $sale->currency ?? 'S/' }} {{ number_format($sale->total, 2) }}</span>
+                        <span class="font-bold text-lg text-gray-900">{{ $sale->currency ?? config('erp.currency_symbol') }} {{ number_format($sale->total, 2) }}</span>
                     </div>
                     @if(isset($sale->gross_profit))
                         <div class="flex justify-between pt-2 border-t border-gray-100 text-emerald-700">

@@ -127,13 +127,13 @@
                                         {{ number_format($pending, 2) }}
                                     </td>
                                     <td class="py-3 px-4 text-right text-gray-700">
-                                        {{ $order->currency ?? 'S/' }} {{ number_format($item->unit_price, 2) }}
+                                        {{ $order->currency ?? config('erp.currency_symbol') }} {{ number_format($item->unit_price, 2) }}
                                         @if($item->discount_percent > 0)
                                             <span class="text-xs text-gray-400 block">-{{ $item->discount_percent }}% dto.</span>
                                         @endif
                                     </td>
                                     <td class="py-3 pl-4 text-right font-medium text-gray-900">
-                                        {{ $order->currency ?? 'S/' }} {{ number_format($item->subtotal, 2) }}
+                                        {{ $order->currency ?? config('erp.currency_symbol') }} {{ number_format($item->subtotal, 2) }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -168,7 +168,7 @@
                     @endif
                     <div class="flex justify-between pt-2 border-t border-gray-100">
                         <span class="font-semibold text-gray-900">Total</span>
-                        <span class="font-bold text-lg text-gray-900">{{ $order->currency ?? 'S/' }} {{ number_format($order->total, 2) }}</span>
+                        <span class="font-bold text-lg text-gray-900">{{ $order->currency ?? config('erp.currency_symbol') }} {{ number_format($order->total, 2) }}</span>
                     </div>
                 </div>
             </div>

@@ -151,19 +151,19 @@
                 <div class="space-y-2 text-sm">
                     <div class="flex justify-between">
                         <span class="text-gray-500">Materiales</span>
-                        <span class="font-medium">S/ {{ number_format($order->estimated_material_cost ?? 0, 2) }}</span>
+                        <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($order->estimated_material_cost ?? 0, 2) }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-500">Mano de obra</span>
-                        <span class="font-medium">S/ {{ number_format($order->estimated_labor_cost ?? 0, 2) }}</span>
+                        <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($order->estimated_labor_cost ?? 0, 2) }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-500">G. generales</span>
-                        <span class="font-medium">S/ {{ number_format($order->estimated_overhead_cost ?? 0, 2) }}</span>
+                        <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($order->estimated_overhead_cost ?? 0, 2) }}</span>
                     </div>
                     <div class="flex justify-between pt-2 border-t border-gray-100">
                         <span class="font-semibold text-gray-900">Total estimado</span>
-                        <span class="font-bold text-gray-900">S/ {{ number_format($order->estimated_total_cost ?? 0, 2) }}</span>
+                        <span class="font-bold text-gray-900">{{ config('erp.currency_symbol') }} {{ number_format($order->estimated_total_cost ?? 0, 2) }}</span>
                     </div>
                 </div>
             </div>
@@ -174,26 +174,26 @@
                     <div class="space-y-2 text-sm">
                         <div class="flex justify-between">
                             <span class="text-gray-500">Materiales</span>
-                            <span class="font-medium">S/ {{ number_format($order->actual_material_cost ?? 0, 2) }}</span>
+                            <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($order->actual_material_cost ?? 0, 2) }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-500">Mano de obra</span>
-                            <span class="font-medium">S/ {{ number_format($order->actual_labor_cost ?? 0, 2) }}</span>
+                            <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($order->actual_labor_cost ?? 0, 2) }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-500">G. generales</span>
-                            <span class="font-medium">S/ {{ number_format($order->actual_overhead_cost ?? 0, 2) }}</span>
+                            <span class="font-medium">{{ config('erp.currency_symbol') }} {{ number_format($order->actual_overhead_cost ?? 0, 2) }}</span>
                         </div>
                         <div class="flex justify-between pt-2 border-t border-gray-100">
                             <span class="font-semibold text-gray-900">Total real</span>
-                            <span class="font-bold text-gray-900">S/ {{ number_format($order->actual_total_cost ?? 0, 2) }}</span>
+                            <span class="font-bold text-gray-900">{{ config('erp.currency_symbol') }} {{ number_format($order->actual_total_cost ?? 0, 2) }}</span>
                         </div>
                         @php
                             $variance = ($order->actual_total_cost ?? 0) - ($order->estimated_total_cost ?? 0);
                         @endphp
                         <div class="flex justify-between pt-2 border-t border-gray-100 {{ $variance > 0 ? 'text-red-600' : 'text-emerald-600' }}">
                             <span class="font-medium">Variación</span>
-                            <span class="font-bold">{{ $variance > 0 ? '+' : '' }}S/ {{ number_format($variance, 2) }}</span>
+                            <span class="font-bold">{{ $variance > 0 ? '+' : '' }}{{ config('erp.currency_symbol') }} {{ number_format($variance, 2) }}</span>
                         </div>
                     </div>
                 </div>
