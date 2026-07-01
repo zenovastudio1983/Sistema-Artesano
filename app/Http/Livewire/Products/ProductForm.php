@@ -47,6 +47,8 @@ class ProductForm extends Component
     public bool $track_batches = false;
     public bool $track_expiry = false;
     public string $shelfLifeDays = '';
+    public string $manufacturingDate = '';
+    public string $expiryDate = '';
 
     // Físico
     public string $weight = '';
@@ -84,6 +86,8 @@ class ProductForm extends Component
             $this->track_batches   = (bool) $product->track_batches;
             $this->track_expiry    = (bool) $product->track_expiry;
             $this->shelfLifeDays   = (string) ($product->shelf_life_days ?? '');
+            $this->manufacturingDate = $product->manufacturing_date?->format('Y-m-d') ?? '';
+            $this->expiryDate      = $product->expiry_date?->format('Y-m-d') ?? '';
             $this->weight          = (string) ($product->weight ?? '');
             $this->weightUnit      = $product->weight_unit ?? 'kg';
             $this->volume          = (string) ($product->volume ?? '');
@@ -136,8 +140,10 @@ class ProductForm extends Component
                     ? \Illuminate\Validation\Rule::unique('products', 'sku')->ignore($this->productId)
                     : \Illuminate\Validation\Rule::unique('products', 'sku'),
             ],
-            'cost'  => 'nullable|numeric|min:0',
-            'price' => 'nullable|numeric|min:0',
+            'cost'               => 'nullable|numeric|min:0',
+            'price'              => 'nullable|numeric|min:0',
+            'manufacturingDate'  => 'nullable|date',
+            'expiryDate'         => 'nullable|date|after_or_equal:manufacturingDate',
         ]);
 
         $data = [
@@ -164,7 +170,9 @@ class ProductForm extends Component
             'is_producible'     => $this->is_producible,
             'track_batches'     => $this->track_batches,
             'track_expiry'      => $this->track_expiry,
-            'shelf_life_days'   => $this->shelfLifeDays !== '' ? (int) $this->shelfLifeDays : null,
+            'shelf_life_days'      => $this->shelfLifeDays !== '' ? (int) $this->shelfLifeDays : null,
+            'manufacturing_date'   => $this->manufacturingDate ?: null,
+            'expiry_date'          => $this->expiryDate ?: null,
             'weight'            => $this->weight !== '' ? (float) $this->weight : null,
             'weight_unit'       => $this->weightUnit ?: null,
             'volume'            => $this->volume !== '' ? (float) $this->volume : null,

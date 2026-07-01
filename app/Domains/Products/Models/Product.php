@@ -21,7 +21,7 @@ class Product extends Model implements HasMedia
         'secondary_unit', 'conversion_factor', 'cost', 'standard_cost',
         'last_purchase_cost', 'average_cost', 'price', 'min_price', 'margin_percent',
         'stock_minimum', 'stock_maximum', 'reorder_point', 'track_batches',
-        'track_expiry', 'shelf_life_days', 'weight', 'weight_unit', 'volume',
+        'track_expiry', 'shelf_life_days', 'manufacturing_date', 'expiry_date', 'weight', 'weight_unit', 'volume',
         'volume_unit', 'status', 'is_purchasable', 'is_sellable', 'is_producible',
         'meta', 'notes',
     ];
@@ -43,6 +43,8 @@ class Product extends Model implements HasMedia
             'reorder_point' => 'decimal:4',
             'track_batches' => 'boolean',
             'track_expiry' => 'boolean',
+            'manufacturing_date' => 'date',
+            'expiry_date' => 'date',
             'is_purchasable' => 'boolean',
             'is_sellable' => 'boolean',
             'is_producible' => 'boolean',

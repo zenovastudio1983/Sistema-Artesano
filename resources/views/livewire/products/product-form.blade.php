@@ -175,14 +175,42 @@
                         </div>
 
                         @if($track_expiry)
-                            <div class="md:col-span-4">
+                            <div class="md:col-span-2">
                                 <label class="form-label">Vida útil (días)</label>
-                                <input wire:model="shelfLifeDays" type="number" min="1" class="form-input w-40">
+                                <input wire:model="shelfLifeDays" type="number" min="1" class="form-input">
                             </div>
                         @endif
 
                     </div>
                 </div>
+
+                {{-- Fechas de elaboración y vencimiento --}}
+                @if($is_producible || $track_batches || $track_expiry)
+                <div class="card">
+                    <h2 class="text-sm font-semibold text-gray-700 mb-4">Fechas del producto</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                        @if($is_producible || $track_batches)
+                        <div>
+                            <label class="form-label">Fecha de elaboración</label>
+                            <input wire:model="manufacturingDate" type="date" class="form-input">
+                            @error('manufacturingDate') <p class="form-error">{{ $message }}</p> @enderror
+                            <p class="text-xs text-gray-400 mt-1">Fecha en que fue fabricado o producido</p>
+                        </div>
+                        @endif
+
+                        @if($track_expiry)
+                        <div>
+                            <label class="form-label">Fecha de vencimiento</label>
+                            <input wire:model="expiryDate" type="date" class="form-input">
+                            @error('expiryDate') <p class="form-error">{{ $message }}</p> @enderror
+                            <p class="text-xs text-gray-400 mt-1">Debe ser igual o posterior a la fecha de elaboración</p>
+                        </div>
+                        @endif
+
+                    </div>
+                </div>
+                @endif
 
             </div>
 
@@ -207,7 +235,7 @@
                             </div>
                         </label>
                         <label class="flex items-center gap-3 cursor-pointer">
-                            <input wire:model="is_producible" type="checkbox" class="w-4 h-4 rounded text-indigo-600">
+                            <input wire:model.live="is_producible" type="checkbox" class="w-4 h-4 rounded text-indigo-600">
                             <div>
                                 <p class="text-sm font-medium text-gray-700">Producible</p>
                                 <p class="text-xs text-gray-400">Tiene receta de fabricación</p>
@@ -215,7 +243,7 @@
                         </label>
                         <hr class="border-gray-100">
                         <label class="flex items-center gap-3 cursor-pointer">
-                            <input wire:model="track_batches" type="checkbox" class="w-4 h-4 rounded text-indigo-600">
+                            <input wire:model.live="track_batches" type="checkbox" class="w-4 h-4 rounded text-indigo-600">
                             <div>
                                 <p class="text-sm font-medium text-gray-700">Control por lotes</p>
                                 <p class="text-xs text-gray-400">Trazabilidad de número de lote</p>

@@ -255,6 +255,33 @@
                 </div>
             </div>
 
+            @if($product->manufacturing_date || $product->expiry_date)
+            <div class="card">
+                <h3 class="text-sm font-semibold text-gray-700 mb-4">Fechas del producto</h3>
+                <div class="space-y-3 text-sm">
+                    @if($product->manufacturing_date)
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Elaboración</span>
+                            <span class="font-medium text-gray-900">{{ $product->manufacturing_date->format('d/m/Y') }}</span>
+                        </div>
+                    @endif
+                    @if($product->expiry_date)
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Vencimiento</span>
+                            <span class="font-medium {{ $product->expiry_date->isPast() ? 'text-red-600' : ($product->expiry_date->diffInDays(now()) <= 30 ? 'text-amber-600' : 'text-gray-900') }}">
+                                {{ $product->expiry_date->format('d/m/Y') }}
+                                @if($product->expiry_date->isPast())
+                                    <span class="text-xs">(vencido)</span>
+                                @elseif($product->expiry_date->diffInDays(now()) <= 30)
+                                    <span class="text-xs">(próximo a vencer)</span>
+                                @endif
+                            </span>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            @endif
+
             <div class="card">
                 <h3 class="text-sm font-semibold text-gray-700 mb-3">Información</h3>
                 <div class="space-y-2 text-xs text-gray-500">
