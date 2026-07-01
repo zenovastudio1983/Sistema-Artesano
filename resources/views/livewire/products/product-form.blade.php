@@ -174,12 +174,6 @@
                             </select>
                         </div>
 
-                        @if($track_expiry)
-                            <div class="md:col-span-2">
-                                <label class="form-label">Vida útil (días)</label>
-                                <input wire:model="shelfLifeDays" type="number" min="1" class="form-input">
-                            </div>
-                        @endif
 
                     </div>
                 </div>
@@ -193,18 +187,27 @@
                         @if($is_producible || $track_batches)
                         <div>
                             <label class="form-label">Fecha de elaboración</label>
-                            <input wire:model="manufacturingDate" type="date" class="form-input">
+                            <input wire:model.live="manufacturingDate" type="date" class="form-input">
                             @error('manufacturingDate') <p class="form-error">{{ $message }}</p> @enderror
-                            <p class="text-xs text-gray-400 mt-1">Fecha en que fue fabricado o producido</p>
                         </div>
                         @endif
 
                         @if($track_expiry)
                         <div>
                             <label class="form-label">Fecha de vencimiento</label>
-                            <input wire:model="expiryDate" type="date" class="form-input">
+                            <input wire:model.live="expiryDate" type="date" class="form-input">
                             @error('expiryDate') <p class="form-error">{{ $message }}</p> @enderror
-                            <p class="text-xs text-gray-400 mt-1">Debe ser igual o posterior a la fecha de elaboración</p>
+                        </div>
+                        @endif
+
+                        @if($shelfLifeDays !== '')
+                        <div class="md:col-span-2">
+                            <div class="flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-lg px-4 py-3 text-sm">
+                                <svg class="w-4 h-4 text-indigo-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-indigo-700">Vida útil calculada: <strong>{{ $shelfLifeDays }} días</strong></span>
+                            </div>
                         </div>
                         @endif
 

@@ -112,6 +112,27 @@ class ProductForm extends Component
         };
     }
 
+    public function updatedManufacturingDate(): void
+    {
+        $this->recalcShelfLife();
+    }
+
+    public function updatedExpiryDate(): void
+    {
+        $this->recalcShelfLife();
+    }
+
+    private function recalcShelfLife(): void
+    {
+        if ($this->manufacturingDate && $this->expiryDate) {
+            $start = \Carbon\Carbon::parse($this->manufacturingDate);
+            $end   = \Carbon\Carbon::parse($this->expiryDate);
+            $this->shelfLifeDays = $end >= $start ? (string) $start->diffInDays($end) : '';
+        } else {
+            $this->shelfLifeDays = '';
+        }
+    }
+
     public function updatedCost(): void
     {
         if ($this->cost && $this->price) {
