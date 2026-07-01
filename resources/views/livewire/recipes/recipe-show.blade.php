@@ -1,4 +1,4 @@
-<div>
+﻿<div>
     <div class="page-header">
         <div>
             <div class="flex items-center gap-2 text-sm text-gray-500 mb-1">
@@ -113,10 +113,10 @@
                                         {{ $ingredient->scrap_percentage > 0 ? $ingredient->scrap_percentage . '%' : '—' }}
                                     </td>
                                     <td class="py-3 px-4 text-right text-gray-700">
-                                        {{ config('erp.currency_symbol') }} {{ number_format($ingredient->unit_cost, 4) }}
+                                        {{ config('erp.currency_symbol') }} {{ number_format($ingredient->unit_cost, 2) }}
                                     </td>
                                     <td class="py-3 pl-4 text-right font-medium text-gray-900">
-                                        {{ config('erp.currency_symbol') }} {{ number_format($ingredient->total_cost ?? ($ingredient->quantity * (1 + $ingredient->scrap_percentage / 100) * $ingredient->unit_cost), 4) }}
+                                        {{ config('erp.currency_symbol') }} {{ number_format($ingredient->total_cost ?? ($ingredient->quantity * (1 + $ingredient->scrap_percentage / 100) * $ingredient->unit_cost), 2) }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -151,7 +151,7 @@
                     </div>
                     <div class="flex justify-between pt-2 border-t border-gray-100 text-indigo-700">
                         <span class="font-semibold">Costo unitario</span>
-                        <span class="font-bold text-lg">{{ config('erp.currency_symbol') }} {{ number_format($recipe->unit_cost, 4) }}</span>
+                        <span class="font-bold text-lg">{{ config('erp.currency_symbol') }} {{ number_format($recipe->unit_cost, 2) }}</span>
                     </div>
                 </div>
 

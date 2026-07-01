@@ -1,4 +1,4 @@
-<div>
+﻿<div>
     <div class="page-header">
         <div>
             <div class="flex items-center gap-2 text-sm text-gray-500 mb-1">
@@ -38,7 +38,7 @@
                                         <p class="font-medium text-indigo-900">{{ $selectedRecipe->name }}</p>
                                         <p class="text-indigo-600 text-xs mt-0.5">
                                             Rendimiento: {{ $selectedRecipe->yield_quantity }} {{ $selectedRecipe->yield_unit }} ·
-                                            Costo unit.: {{ config('erp.currency_symbol') }} {{ number_format($selectedRecipe->unit_cost, 4) }}
+                                            Costo unit.: {{ config('erp.currency_symbol') }} {{ number_format($selectedRecipe->unit_cost, 2) }}
                                         </p>
                                     </div>
                                 </div>

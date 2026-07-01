@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+﻿<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
@@ -97,7 +97,7 @@
                             </span>
                         </td>
                         <td class="px-6 py-4 text-right text-sm font-mono text-gray-700">
-                            {{ $movement->unit_cost ? config('erp.currency_symbol') . ' ' . number_format($movement->unit_cost, 4) : '—' }}
+                            {{ $movement->unit_cost ? config('erp.currency_symbol') . ' ' . number_format($movement->unit_cost, 2) : '—' }}
                         </td>
                         <td class="px-6 py-4 text-sm text-gray-500">
                             {{ $movement->reference ?? $movement->notes ?? '—' }}

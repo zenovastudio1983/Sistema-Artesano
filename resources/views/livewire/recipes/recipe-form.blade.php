@@ -1,4 +1,4 @@
-<div>
+﻿<div>
     <div class="page-header">
         <div>
             <div class="flex items-center gap-2 text-sm text-gray-500 mb-1">
@@ -162,7 +162,7 @@
                                             <input wire:model="ingredients.{{ $index }}.is_optional" type="checkbox" class="w-3 h-3 rounded">
                                             opcional
                                         </label>
-                                        <span>Costo línea: <span class="font-semibold text-gray-700">{{ config('erp.currency_symbol') }} {{ number_format($ing['total_cost'] ?? 0, 4) }}</span></span>
+                                        <span>Costo línea: <span class="font-semibold text-gray-700">{{ config('erp.currency_symbol') }} {{ number_format($ing['total_cost'] ?? 0, 2) }}</span></span>
                                     </div>
 
                                 </div>
@@ -216,7 +216,7 @@
                         </div>
                         <div class="flex justify-between pt-2 border-t border-gray-200 text-indigo-700">
                             <span class="font-bold">Costo unitario</span>
-                            <span class="font-bold text-lg">{{ config('erp.currency_symbol') }} {{ number_format($unitCost, 4) }}</span>
+                            <span class="font-bold text-lg">{{ config('erp.currency_symbol') }} {{ number_format($unitCost, 2) }}</span>
                         </div>
                     </div>
                 </div>

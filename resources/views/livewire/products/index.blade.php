@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+﻿<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     {{-- Page header --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
@@ -126,7 +126,7 @@
                         <td class="px-6 py-4 text-sm text-gray-500">{{ $product->category?->name ?? '—' }}</td>
                         <td class="px-6 py-4 text-right">
                             <span class="text-sm font-mono text-gray-700">
-                                {{ config('erp.currency_symbol') }} {{ number_format($product->average_cost, 4) }}
+                                {{ config('erp.currency_symbol') }} {{ number_format($product->average_cost, 2) }}
                             </span>
                         </td>
                         <td class="px-6 py-4 text-right">

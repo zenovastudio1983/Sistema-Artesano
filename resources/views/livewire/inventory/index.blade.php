@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+﻿<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     {{-- Page header --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
@@ -200,7 +200,7 @@
                                 {{ config('erp.currency_symbol') }} {{ number_format($item->total_inventory_value, 2) }}
                             </span>
                             <p class="text-xs text-gray-400">
-                                @ {{ config('erp.currency_symbol') }} {{ number_format($item->current_cost, 4) }}
+                                @ {{ config('erp.currency_symbol') }} {{ number_format($item->current_cost, 2) }}
                             </p>
                         </td>
                         <td class="px-6 py-4 text-center">

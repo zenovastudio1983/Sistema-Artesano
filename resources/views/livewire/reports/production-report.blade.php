@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+﻿<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
@@ -83,7 +83,7 @@
                         <td class="px-6 py-3 text-right text-sm font-mono text-gray-700">{{ number_format($row->labor_cost, 2) }}</td>
                         <td class="px-6 py-3 text-right text-sm font-mono text-gray-700">{{ number_format($row->overhead_cost, 2) }}</td>
                         <td class="px-6 py-3 text-right text-sm font-mono font-medium text-gray-900">{{ config('erp.currency_symbol') }} {{ number_format($row->total_cost, 2) }}</td>
-                        <td class="px-6 py-3 text-right text-sm font-mono text-indigo-600">{{ config('erp.currency_symbol') }} {{ number_format($row->unit_cost, 4) }}</td>
+                        <td class="px-6 py-3 text-right text-sm font-mono text-indigo-600">{{ config('erp.currency_symbol') }} {{ number_format($row->unit_cost, 2) }}</td>
                         <td class="px-6 py-3 text-right text-sm {{ $var > 0 ? 'text-red-500' : 'text-emerald-600' }}">
                             {{ $var > 0 ? '+' : '' }}{{ number_format($var, 2) }}
                         </td>

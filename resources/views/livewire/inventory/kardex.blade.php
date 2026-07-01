@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+﻿<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
@@ -14,8 +14,8 @@
         @if($currentInventory)
         <div class="text-right">
             <p class="text-sm text-gray-500">Stock actual</p>
-            <p class="text-2xl font-bold text-gray-900">{{ number_format($currentInventory->quantity, 4) }} {{ $product->unit }}</p>
-            <p class="text-sm text-gray-500">Costo prom: {{ config('erp.currency_symbol') }} {{ number_format($currentInventory->average_cost, 4) }}</p>
+            <p class="text-2xl font-bold text-gray-900">{{ number_format($currentInventory->quantity, 2) }} {{ $product->unit }}</p>
+            <p class="text-sm text-gray-500">Costo prom: {{ config('erp.currency_symbol') }} {{ number_format($currentInventory->average_cost, 2) }}</p>
         </div>
         @endif
     </div>
@@ -77,26 +77,26 @@
                         </td>
                         <td class="px-4 py-3 text-right font-mono">
                             @if($movement->movement_type->isEntry())
-                                <span class="text-green-700 font-semibold">{{ number_format($movement->quantity, 4) }}</span>
+                                <span class="text-green-700 font-semibold">{{ number_format($movement->quantity, 2) }}</span>
                             @else
                                 <span class="text-gray-300">—</span>
                             @endif
                         </td>
                         <td class="px-4 py-3 text-right font-mono">
                             @if($movement->movement_type->isExit())
-                                <span class="text-red-600 font-semibold">{{ number_format($movement->quantity, 4) }}</span>
+                                <span class="text-red-600 font-semibold">{{ number_format($movement->quantity, 2) }}</span>
                             @else
                                 <span class="text-gray-300">—</span>
                             @endif
                         </td>
                         <td class="px-4 py-3 text-right font-mono text-gray-700">
-                            {{ config('erp.currency_symbol') }} {{ number_format($movement->unit_cost, 4) }}
+                            {{ config('erp.currency_symbol') }} {{ number_format($movement->unit_cost, 2) }}
                         </td>
                         <td class="px-4 py-3 text-right font-mono font-semibold text-gray-900">
-                            {{ number_format($movement->balance_quantity, 4) }}
+                            {{ number_format($movement->balance_quantity, 2) }}
                         </td>
                         <td class="px-4 py-3 text-right font-mono text-gray-700">
-                            {{ config('erp.currency_symbol') }} {{ number_format($movement->balance_average_cost, 4) }}
+                            {{ config('erp.currency_symbol') }} {{ number_format($movement->balance_average_cost, 2) }}
                         </td>
                         <td class="px-4 py-3 text-right font-mono text-gray-900">
                             {{ config('erp.currency_symbol') }} {{ number_format($movement->balance_total_value, 2) }}

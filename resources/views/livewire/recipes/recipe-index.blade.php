@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+﻿<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
@@ -99,7 +99,7 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             @if($recipe->unit_cost)
-                                <span class="text-sm font-mono text-gray-900">{{ config('erp.currency_symbol') }} {{ number_format($recipe->unit_cost, 4) }}</span>
+                                <span class="text-sm font-mono text-gray-900">{{ config('erp.currency_symbol') }} {{ number_format($recipe->unit_cost, 2) }}</span>
                             @else
                                 <span class="text-sm text-gray-400">—</span>
                             @endif

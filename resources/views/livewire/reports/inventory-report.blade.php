@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+﻿<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
@@ -93,7 +93,7 @@
                         <td class="px-6 py-3 text-sm text-gray-500">{{ $item->category_name ?? '—' }}</td>
                         <td class="px-6 py-3 text-right text-sm font-mono text-gray-900">{{ number_format($item->total_stock, 2) }} {{ $item->unit }}</td>
                         <td class="px-6 py-3 text-right text-sm font-mono text-gray-500">{{ number_format($item->stock_minimum ?? 0, 2) }}</td>
-                        <td class="px-6 py-3 text-right text-sm font-mono text-gray-700">{{ config('erp.currency_symbol') }} {{ number_format($item->average_cost ?? 0, 4) }}</td>
+                        <td class="px-6 py-3 text-right text-sm font-mono text-gray-700">{{ config('erp.currency_symbol') }} {{ number_format($item->average_cost ?? 0, 2) }}</td>
                         <td class="px-6 py-3 text-right text-sm font-mono font-medium text-gray-900">{{ config('erp.currency_symbol') }} {{ number_format($item->total_inventory_value ?? 0, 2) }}</td>
                         <td class="px-6 py-3 text-center">
                             <span class="badge {{ $statusClass }}">{{ $statusLabel }}</span>
