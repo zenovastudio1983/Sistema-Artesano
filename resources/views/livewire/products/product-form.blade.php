@@ -17,6 +17,71 @@
             {{-- Columna principal --}}
             <div class="lg:col-span-2 space-y-6">
 
+                {{-- Imagen principal --}}
+                <div class="card" x-data="{ dragging: false }">
+                    <h2 class="text-sm font-semibold text-gray-700 mb-4">Imagen del producto</h2>
+
+                    @php $currentImage = $productId ? \App\Domains\Products\Models\Product::find($productId)?->image_url : null; @endphp
+
+                    <div class="flex gap-6 items-start flex-wrap">
+
+                        {{-- Preview --}}
+                        <div class="w-28 h-28 rounded-xl border-2 border-dashed border-gray-200 overflow-hidden flex-shrink-0 bg-gray-50 flex items-center justify-center relative">
+                            @if($mainImage)
+                                <img src="{{ $mainImage->temporaryUrl() }}" class="w-full h-full object-cover" alt="Preview">
+                            @elseif($currentImage && !$deleteImage)
+                                <img src="{{ $currentImage }}" class="w-full h-full object-cover" alt="Imagen actual">
+                            @else
+                                <svg class="w-10 h-10 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            @endif
+                        </div>
+
+                        {{-- Controles --}}
+                        <div class="flex-1 min-w-0">
+                            <label class="flex flex-col items-start gap-2 cursor-pointer group">
+                                <div class="flex items-center gap-2 bg-white border border-gray-200 hover:border-indigo-400 hover:bg-indigo-50 text-gray-600 hover:text-indigo-700 rounded-lg px-4 py-2 text-sm font-medium transition-colors">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                                    </svg>
+                                    Elegir imagen
+                                </div>
+                                <input wire:model="mainImage" type="file" accept="image/*" class="sr-only">
+                            </label>
+                            <p class="text-xs text-gray-400 mt-2">JPG, PNG o WebP · máx. 2 MB · La imagen es opcional</p>
+
+                            @error('mainImage') <p class="form-error mt-1">{{ $message }}</p> @enderror
+
+                            @if($mainImage)
+                                <div class="flex items-center gap-2 mt-2 text-xs text-indigo-600">
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                    Nueva imagen seleccionada
+                                </div>
+                            @endif
+
+                            @if($currentImage && !$mainImage)
+                                <label class="flex items-center gap-2 mt-3 cursor-pointer group">
+                                    <input wire:model="deleteImage" type="checkbox" class="w-3.5 h-3.5 rounded text-red-500">
+                                    <span class="text-xs text-gray-400 group-hover:text-red-500 transition-colors">Eliminar imagen actual</span>
+                                </label>
+                            @endif
+                        </div>
+
+                    </div>
+
+                    <div wire:loading wire:target="mainImage" class="mt-3 flex items-center gap-2 text-xs text-indigo-500">
+                        <svg class="animate-spin w-3.5 h-3.5" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                        </svg>
+                        Subiendo imagen…
+                    </div>
+                </div>
+
                 {{-- Identificación --}}
                 <div class="card">
                     <h2 class="text-sm font-semibold text-gray-700 mb-4">Identificación</h2>

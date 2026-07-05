@@ -9,12 +9,19 @@ use App\Support\Enums\ProductType;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 #[Layout('layouts.app')]
 #[Title('Producto')]
 class ProductForm extends Component
 {
+    use WithFileUploads;
+
     public ?int $productId = null;
+
+    // Imagen principal
+    public $mainImage = null;
+    public bool $deleteImage = false;
 
     // Identificación
     public string $sku = '';
@@ -184,6 +191,7 @@ class ProductForm extends Component
             'price'              => 'nullable|numeric|min:0',
             'manufacturingDate'  => 'nullable|date',
             'expiryDate'         => 'nullable|date|after_or_equal:manufacturingDate',
+            'mainImage'          => 'nullable|image|max:2048',
             'publicSlug'         => [
                 'nullable', 'string', 'max:120', 'regex:/^[a-z0-9\-]+$/',
                 $this->productId
@@ -233,13 +241,25 @@ class ProductForm extends Component
         ];
 
         if ($this->productId) {
-            Product::findOrFail($this->productId)->update($data);
+            $product = Product::findOrFail($this->productId);
+            $product->update($data);
             $message = 'Producto actualizado.';
-            $id = $this->productId;
         } else {
             $product = Product::create($data);
-            $id = $product->id;
             $message = 'Producto creado.';
+        }
+
+        $id = $product->id;
+
+        if ($this->deleteImage) {
+            $product->clearMediaCollection('main_image');
+        }
+
+        if ($this->mainImage) {
+            $product->clearMediaCollection('main_image');
+            $product->addMedia($this->mainImage->getRealPath())
+                    ->usingFileName(time() . '_' . $this->mainImage->getClientOriginalName())
+                    ->toMediaCollection('main_image');
         }
 
         session()->flash('success', $message);
