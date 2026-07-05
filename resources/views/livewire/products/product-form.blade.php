@@ -262,6 +262,62 @@
                     </div>
                 </div>
 
+                {{-- Publicación en tienda --}}
+                <div class="card">
+                    <h3 class="text-sm font-semibold text-gray-700 mb-4">Tienda pública</h3>
+
+                    <label class="flex items-center gap-3 cursor-pointer mb-4">
+                        <input wire:model.live="is_published" type="checkbox" class="w-4 h-4 rounded text-indigo-600">
+                        <div>
+                            <p class="text-sm font-medium text-gray-700">Publicar en tienda</p>
+                            <p class="text-xs text-gray-400">Visible en el catálogo público</p>
+                        </div>
+                    </label>
+
+                    @if($is_published)
+                    <div class="space-y-3">
+                        <div>
+                            <label class="form-label">Slug (URL)</label>
+                            <div class="flex rounded-lg overflow-hidden border border-gray-200 focus-within:ring-2 focus-within:ring-indigo-400">
+                                <span class="px-2 py-2 bg-gray-50 text-xs text-gray-400 border-r border-gray-200 flex items-center">/tienda/</span>
+                                <input wire:model="publicSlug" type="text"
+                                       class="flex-1 px-2 py-2 text-sm focus:outline-none bg-white"
+                                       placeholder="mi-producto">
+                            </div>
+                            @error('publicSlug') <p class="form-error">{{ $message }}</p> @enderror
+                            <p class="text-xs text-gray-400 mt-1">Solo letras, números y guiones</p>
+                        </div>
+
+                        <div>
+                            <label class="form-label">Descripción para clientes</label>
+                            <textarea wire:model="publicDescription" rows="3"
+                                      class="form-input text-sm"
+                                      placeholder="Descripción que verán los clientes en la tienda…"></textarea>
+                            <p class="text-xs text-gray-400 mt-1">Si no se completa, se usa la descripción interna</p>
+                        </div>
+
+                        <div class="pt-2 border-t border-gray-100">
+                            <label class="flex items-center gap-3 cursor-pointer mb-3">
+                                <input wire:model.live="is_made_to_order" type="checkbox" class="w-4 h-4 rounded text-amber-500">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">A pedido</p>
+                                    <p class="text-xs text-gray-400">Se fabrica bajo demanda</p>
+                                </div>
+                            </label>
+
+                            @if($is_made_to_order)
+                            <div>
+                                <label class="form-label">Días de entrega estimados</label>
+                                <input wire:model="leadTimeDays" type="number" min="1" max="365"
+                                       class="form-input" placeholder="Ej: 7">
+                                @error('leadTimeDays') <p class="form-error">{{ $message }}</p> @enderror
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                    @endif
+                </div>
+
                 @if($type && in_array($type, ['finished_product', 'semi_finished']))
                     <div class="card bg-indigo-50 border border-indigo-100">
                         <p class="text-xs font-medium text-indigo-700 mb-1">Tipo seleccionado</p>

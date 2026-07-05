@@ -27,6 +27,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Tienda Pública (Storefront)
+    |--------------------------------------------------------------------------
+    | Número de WhatsApp para recibir pedidos. Solo dígitos, con código de país.
+    | Ej: 5491123456789 para Argentina +54 9 11 2345-6789
+    */
+    'whatsapp_number' => env('WHATSAPP_NUMBER', ''),
+
+    /*
+    |--------------------------------------------------------------------------
     | Cost Methods
     |--------------------------------------------------------------------------
     | average   - Costo promedio ponderado

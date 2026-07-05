@@ -58,6 +58,13 @@ class ProductForm extends Component
 
     public string $notes = '';
 
+    // Tienda pública
+    public bool $is_published = false;
+    public string $publicSlug = '';
+    public string $publicDescription = '';
+    public bool $is_made_to_order = false;
+    public string $leadTimeDays = '';
+
     public function mount(?Product $product = null): void
     {
         if ($product && $product->exists) {
@@ -93,6 +100,18 @@ class ProductForm extends Component
             $this->volume          = (string) ($product->volume ?? '');
             $this->volumeUnit      = $product->volume_unit ?? 'L';
             $this->notes           = $product->notes ?? '';
+            $this->is_published    = (bool) $product->is_published;
+            $this->publicSlug      = $product->public_slug ?? '';
+            $this->publicDescription = $product->public_description ?? '';
+            $this->is_made_to_order  = (bool) $product->is_made_to_order;
+            $this->leadTimeDays    = (string) ($product->lead_time_days ?? '');
+        }
+    }
+
+    public function updatedName(): void
+    {
+        if (! $this->publicSlug && $this->name) {
+            $this->publicSlug = \Illuminate\Support\Str::slug($this->name);
         }
     }
 
@@ -165,6 +184,13 @@ class ProductForm extends Component
             'price'              => 'nullable|numeric|min:0',
             'manufacturingDate'  => 'nullable|date',
             'expiryDate'         => 'nullable|date|after_or_equal:manufacturingDate',
+            'publicSlug'         => [
+                'nullable', 'string', 'max:120', 'regex:/^[a-z0-9\-]+$/',
+                $this->productId
+                    ? \Illuminate\Validation\Rule::unique('products', 'public_slug')->ignore($this->productId)
+                    : \Illuminate\Validation\Rule::unique('products', 'public_slug'),
+            ],
+            'leadTimeDays'       => 'nullable|integer|min:1|max:365',
         ]);
 
         $data = [
@@ -199,6 +225,11 @@ class ProductForm extends Component
             'volume'            => $this->volume !== '' ? (float) $this->volume : null,
             'volume_unit'       => $this->volumeUnit ?: null,
             'notes'             => $this->notes ?: null,
+            'is_published'      => $this->is_published,
+            'public_slug'       => $this->publicSlug ?: null,
+            'public_description'=> $this->publicDescription ?: null,
+            'is_made_to_order'  => $this->is_made_to_order,
+            'lead_time_days'    => $this->leadTimeDays !== '' ? (int) $this->leadTimeDays : null,
         ];
 
         if ($this->productId) {

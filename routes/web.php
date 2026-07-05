@@ -5,10 +5,22 @@ use Illuminate\Support\Facades\Route;
 // Auth routes
 require __DIR__ . '/auth.php';
 
+// Tienda pública (sin autenticación)
+Route::prefix('tienda')->name('tienda.')->group(function () {
+    Route::get('/', \App\Http\Livewire\Storefront\Catalog::class)->name('index');
+    Route::get('/{slug}', \App\Http\Livewire\Storefront\ProductDetail::class)->name('product');
+});
+
+// Raíz: redirige según autenticación
+Route::get('/', function () {
+    return auth()->check()
+        ? redirect()->route('dashboard')
+        : redirect()->route('tienda.index');
+});
+
 // Authenticated routes
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', \App\Http\Livewire\Dashboard\DashboardMain::class)->name('dashboard');
-    Route::redirect('/dashboard', '/');
+    Route::get('/dashboard', \App\Http\Livewire\Dashboard\DashboardMain::class)->name('dashboard');
 
     // Products
     Route::prefix('products')->name('products.')->group(function () {

@@ -24,6 +24,7 @@ class Product extends Model implements HasMedia
         'track_expiry', 'shelf_life_days', 'manufacturing_date', 'expiry_date', 'weight', 'weight_unit', 'volume',
         'volume_unit', 'status', 'is_purchasable', 'is_sellable', 'is_producible',
         'meta', 'notes',
+        'is_published', 'public_slug', 'public_description', 'is_made_to_order', 'lead_time_days',
     ];
 
     protected function casts(): array
@@ -48,6 +49,8 @@ class Product extends Model implements HasMedia
             'is_purchasable' => 'boolean',
             'is_sellable' => 'boolean',
             'is_producible' => 'boolean',
+            'is_published' => 'boolean',
+            'is_made_to_order' => 'boolean',
             'meta' => 'array',
         ];
     }
