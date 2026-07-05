@@ -14,7 +14,7 @@
                 <div class="sm:col-span-2">
                     <label class="form-label">Nombre de la empresa</label>
                     <input wire:model="companyName" type="text" class="form-input" readonly
-                           value="{{ config('erp.company_name', 'Artisan ERP') }}">
+                           value="{{ config('erp.company_name', 'Mi taller artesanal') }}">
                     <p class="text-xs text-gray-400 mt-1">Configurable en el archivo .env (APP_NAME)</p>
                 </div>
                 <div>

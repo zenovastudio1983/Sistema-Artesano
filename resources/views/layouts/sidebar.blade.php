@@ -11,7 +11,7 @@
                 </svg>
             </div>
             <div class="min-w-0">
-                <p class="text-white font-semibold text-sm truncate leading-none">{{ config('erp.company.name', 'Artisan ERP') }}</p>
+                <p class="text-white font-semibold text-sm truncate leading-none">{{ config('erp.company.name', 'Mi taller artesanal') }}</p>
                 <p class="text-gray-500 text-xs truncate leading-none mt-0.5">Gestión artesanal</p>
             </div>
         </div>
