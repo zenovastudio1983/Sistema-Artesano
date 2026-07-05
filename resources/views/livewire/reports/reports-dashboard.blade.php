@@ -21,17 +21,17 @@
             <p class="text-2xl font-bold">{{ config('erp.currency_symbol') }} {{ number_format($kpis['monthly_gross_profit'], 0) }}</p>
             <p class="text-xs text-indigo-200 mt-1">Margen: {{ $kpis['gross_margin_percent'] }}%</p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-            <p class="text-xs text-gray-500 mb-1">Valor del inventario</p>
-            <p class="text-xl font-bold text-amber-700">{{ config('erp.currency_symbol') }} {{ number_format($kpis['total_inventory_value'], 0) }}</p>
+        <div class="bg-gradient-to-br from-amber-500 to-orange-700 rounded-xl p-5 text-white">
+            <p class="text-xs text-amber-100 mb-1">Valor del inventario</p>
+            <p class="text-xl font-bold text-white">{{ config('erp.currency_symbol') }} {{ number_format($kpis['total_inventory_value'], 0) }}</p>
             @if($kpis['critical_stock_count'] > 0)
-                <p class="text-xs text-red-500 mt-1">{{ $kpis['critical_stock_count'] }} productos críticos</p>
+                <p class="text-xs text-amber-200 mt-1">{{ $kpis['critical_stock_count'] }} productos críticos</p>
             @endif
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-            <p class="text-xs text-gray-500 mb-1">Compras pendientes</p>
-            <p class="text-xl font-bold text-gray-900">{{ $kpis['pending_purchases_count'] }}</p>
-            <p class="text-xs text-gray-400 mt-1">{{ config('erp.currency_symbol') }} {{ number_format($kpis['pending_purchases_amount'], 0) }} en total</p>
+        <div class="bg-gradient-to-br from-sky-500 to-blue-700 rounded-xl p-5 text-white">
+            <p class="text-xs text-sky-100 mb-1">Compras pendientes</p>
+            <p class="text-xl font-bold text-white">{{ $kpis['pending_purchases_count'] }}</p>
+            <p class="text-xs text-sky-200 mt-1">{{ config('erp.currency_symbol') }} {{ number_format($kpis['pending_purchases_amount'], 0) }} en total</p>
         </div>
     </div>
 

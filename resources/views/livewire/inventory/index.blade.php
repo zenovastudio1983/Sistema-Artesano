@@ -35,27 +35,27 @@
 
     {{-- Summary KPIs --}}
     <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-6">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 col-span-2 sm:col-span-1">
-            <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">Total Productos</p>
-            <p class="text-2xl font-bold text-gray-900 mt-1">{{ number_format($summary->total_products) }}</p>
+        <div class="bg-gradient-to-br from-sky-500 to-blue-700 rounded-xl shadow-sm p-4 col-span-2 sm:col-span-1">
+            <p class="text-xs font-medium text-sky-100 uppercase tracking-wider">Total Productos</p>
+            <p class="text-2xl font-bold text-white mt-1">{{ number_format($summary->total_products) }}</p>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 col-span-2 sm:col-span-1">
-            <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">Valor Total</p>
-            <p class="text-2xl font-bold text-gray-900 mt-1">
+        <div class="bg-gradient-to-br from-amber-500 to-orange-700 rounded-xl shadow-sm p-4 col-span-2 sm:col-span-1">
+            <p class="text-xs font-medium text-amber-100 uppercase tracking-wider">Valor Total</p>
+            <p class="text-2xl font-bold text-white mt-1">
                 {{ config('erp.currency_symbol') }} {{ number_format($summary->total_value ?? 0, 0) }}
             </p>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border border-red-100 p-4">
-            <p class="text-xs font-medium text-red-500 uppercase tracking-wider">Sin Stock</p>
-            <p class="text-2xl font-bold text-red-600 mt-1">{{ $summary->out_of_stock }}</p>
+        <div class="bg-gradient-to-br from-red-600 to-red-900 rounded-xl shadow-sm p-4">
+            <p class="text-xs font-medium text-red-200 uppercase tracking-wider">Sin Stock</p>
+            <p class="text-2xl font-bold text-white mt-1">{{ $summary->out_of_stock }}</p>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border border-orange-100 p-4">
-            <p class="text-xs font-medium text-orange-500 uppercase tracking-wider">Crítico</p>
-            <p class="text-2xl font-bold text-orange-600 mt-1">{{ $summary->critical }}</p>
+        <div class="bg-gradient-to-br from-orange-500 to-red-700 rounded-xl shadow-sm p-4">
+            <p class="text-xs font-medium text-orange-100 uppercase tracking-wider">Crítico</p>
+            <p class="text-2xl font-bold text-white mt-1">{{ $summary->critical }}</p>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border border-yellow-100 p-4">
-            <p class="text-xs font-medium text-yellow-600 uppercase tracking-wider">Stock Bajo</p>
-            <p class="text-2xl font-bold text-yellow-600 mt-1">{{ $summary->low }}</p>
+        <div class="bg-gradient-to-br from-yellow-400 to-amber-600 rounded-xl shadow-sm p-4">
+            <p class="text-xs font-medium text-yellow-100 uppercase tracking-wider">Stock Bajo</p>
+            <p class="text-2xl font-bold text-white mt-1">{{ $summary->low }}</p>
         </div>
     </div>
 

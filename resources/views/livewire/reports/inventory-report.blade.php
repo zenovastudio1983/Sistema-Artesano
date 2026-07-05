@@ -14,21 +14,21 @@
 
     {{-- Summary cards --}}
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Productos totales</p>
-            <p class="text-xl font-bold text-gray-900">{{ $summary['total_products'] }}</p>
+        <div class="bg-gradient-to-br from-sky-500 to-blue-700 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-sky-100">Productos totales</p>
+            <p class="text-xl font-bold text-white">{{ $summary['total_products'] }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Valor total</p>
-            <p class="text-xl font-bold text-amber-700">{{ config('erp.currency_symbol') }} {{ number_format($summary['total_value'], 2) }}</p>
+        <div class="bg-gradient-to-br from-amber-500 to-orange-700 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-amber-100">Valor total</p>
+            <p class="text-xl font-bold text-white">{{ config('erp.currency_symbol') }} {{ number_format($summary['total_value'], 2) }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-red-100 shadow-sm p-4">
-            <p class="text-xs text-red-500">Críticos / Sin stock</p>
-            <p class="text-xl font-bold text-red-600">{{ $summary['critical_count'] + $summary['out_of_stock_count'] }}</p>
+        <div class="bg-gradient-to-br from-red-600 to-red-900 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-red-200">Críticos / Sin stock</p>
+            <p class="text-xl font-bold text-white">{{ $summary['critical_count'] + $summary['out_of_stock_count'] }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-yellow-100 shadow-sm p-4">
-            <p class="text-xs text-yellow-600">Stock bajo</p>
-            <p class="text-xl font-bold text-yellow-600">{{ $summary['low_count'] }}</p>
+        <div class="bg-gradient-to-br from-yellow-400 to-amber-600 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-yellow-100">Stock bajo</p>
+            <p class="text-xl font-bold text-white">{{ $summary['low_count'] }}</p>
         </div>
     </div>
 

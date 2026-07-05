@@ -29,17 +29,17 @@
     {{-- Summary --}}
     @if($salesData['totals'])
     <div class="grid grid-cols-3 gap-4 mb-6">
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Ingresos totales</p>
-            <p class="text-xl font-bold text-gray-900">{{ config('erp.currency_symbol') }} {{ number_format($salesData['totals']->total_sales ?? 0, 2) }}</p>
+        <div class="bg-gradient-to-br from-emerald-500 to-green-700 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-green-100">Ingresos totales</p>
+            <p class="text-xl font-bold text-white">{{ config('erp.currency_symbol') }} {{ number_format($salesData['totals']->total_sales ?? 0, 2) }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Utilidad bruta</p>
-            <p class="text-xl font-bold text-emerald-600">{{ config('erp.currency_symbol') }} {{ number_format($salesData['totals']->total_profit ?? 0, 2) }}</p>
+        <div class="bg-gradient-to-br from-indigo-500 to-indigo-800 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-indigo-200">Utilidad bruta</p>
+            <p class="text-xl font-bold text-white">{{ config('erp.currency_symbol') }} {{ number_format($salesData['totals']->total_profit ?? 0, 2) }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Margen bruto</p>
-            <p class="text-xl font-bold text-indigo-600">{{ $salesData['totals']->margin_percent ?? 0 }}%</p>
+        <div class="bg-gradient-to-br from-violet-500 to-purple-800 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-violet-200">Margen bruto</p>
+            <p class="text-xl font-bold text-white">{{ $salesData['totals']->margin_percent ?? 0 }}%</p>
         </div>
     </div>
     @endif

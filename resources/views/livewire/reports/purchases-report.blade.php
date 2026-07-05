@@ -38,13 +38,13 @@
     {{-- Totals --}}
     @if($report['totals'])
     <div class="grid grid-cols-2 gap-4 mb-6">
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Total órdenes recibidas</p>
-            <p class="text-2xl font-bold text-gray-900">{{ $report['totals']->total_orders ?? 0 }}</p>
+        <div class="bg-gradient-to-br from-sky-500 to-blue-700 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-sky-100">Total órdenes recibidas</p>
+            <p class="text-2xl font-bold text-white">{{ $report['totals']->total_orders ?? 0 }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Monto total</p>
-            <p class="text-2xl font-bold text-orange-600">{{ config('erp.currency_symbol') }} {{ number_format($report['totals']->total_amount ?? 0, 2) }}</p>
+        <div class="bg-gradient-to-br from-orange-500 to-amber-700 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-orange-100">Monto total</p>
+            <p class="text-2xl font-bold text-white">{{ config('erp.currency_symbol') }} {{ number_format($report['totals']->total_amount ?? 0, 2) }}</p>
         </div>
     </div>
     @endif

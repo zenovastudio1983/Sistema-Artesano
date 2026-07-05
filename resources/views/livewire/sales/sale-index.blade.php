@@ -18,17 +18,17 @@
 
     {{-- KPI bar --}}
     <div class="grid grid-cols-3 gap-4 mb-6">
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500 mb-1">Ventas confirmadas</p>
-            <p class="text-lg font-bold text-gray-900">{{ config('erp.currency_symbol') }} {{ number_format($totals->confirmed_total ?? 0, 2) }}</p>
+        <div class="bg-gradient-to-br from-emerald-500 to-green-700 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-green-100 mb-1">Ventas confirmadas</p>
+            <p class="text-lg font-bold text-white">{{ config('erp.currency_symbol') }} {{ number_format($totals->confirmed_total ?? 0, 2) }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500 mb-1">Utilidad bruta</p>
-            <p class="text-lg font-bold text-emerald-600">{{ config('erp.currency_symbol') }} {{ number_format($totals->total_profit ?? 0, 2) }}</p>
+        <div class="bg-gradient-to-br from-indigo-500 to-indigo-800 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-indigo-200 mb-1">Utilidad bruta</p>
+            <p class="text-lg font-bold text-white">{{ config('erp.currency_symbol') }} {{ number_format($totals->total_profit ?? 0, 2) }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500 mb-1">Total de órdenes</p>
-            <p class="text-lg font-bold text-gray-900">{{ $totals->total_orders ?? 0 }}</p>
+        <div class="bg-gradient-to-br from-sky-500 to-blue-700 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-sky-100 mb-1">Total de órdenes</p>
+            <p class="text-lg font-bold text-white">{{ $totals->total_orders ?? 0 }}</p>
         </div>
     </div>
 

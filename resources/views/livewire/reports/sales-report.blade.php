@@ -46,21 +46,21 @@
     {{-- Totals --}}
     @if($report['totals'])
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Total ventas</p>
-            <p class="text-xl font-bold text-gray-900">{{ config('erp.currency_symbol') }} {{ number_format($report['totals']->total_sales ?? 0, 2) }}</p>
+        <div class="bg-gradient-to-br from-emerald-500 to-green-700 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-green-100">Total ventas</p>
+            <p class="text-xl font-bold text-white">{{ config('erp.currency_symbol') }} {{ number_format($report['totals']->total_sales ?? 0, 2) }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Órdenes</p>
-            <p class="text-xl font-bold text-gray-900">{{ $report['totals']->total_orders ?? 0 }}</p>
+        <div class="bg-gradient-to-br from-sky-500 to-blue-700 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-sky-100">Órdenes</p>
+            <p class="text-xl font-bold text-white">{{ $report['totals']->total_orders ?? 0 }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Utilidad bruta</p>
-            <p class="text-xl font-bold text-emerald-600">{{ config('erp.currency_symbol') }} {{ number_format($report['totals']->total_profit ?? 0, 2) }}</p>
+        <div class="bg-gradient-to-br from-indigo-500 to-indigo-800 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-indigo-200">Utilidad bruta</p>
+            <p class="text-xl font-bold text-white">{{ config('erp.currency_symbol') }} {{ number_format($report['totals']->total_profit ?? 0, 2) }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Margen</p>
-            <p class="text-xl font-bold text-indigo-600">{{ $report['totals']->margin_percent ?? 0 }}%</p>
+        <div class="bg-gradient-to-br from-violet-500 to-purple-800 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-violet-200">Margen</p>
+            <p class="text-xl font-bold text-white">{{ $report['totals']->margin_percent ?? 0 }}%</p>
         </div>
     </div>
     @endif

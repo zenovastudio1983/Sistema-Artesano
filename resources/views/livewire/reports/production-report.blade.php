@@ -29,22 +29,22 @@
     {{-- Totals --}}
     @if($report['totals'])
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Órdenes finalizadas</p>
-            <p class="text-xl font-bold text-gray-900">{{ $report['totals']->total_orders ?? 0 }}</p>
+        <div class="bg-gradient-to-br from-sky-500 to-blue-700 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-sky-100">Órdenes finalizadas</p>
+            <p class="text-xl font-bold text-white">{{ $report['totals']->total_orders ?? 0 }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Unidades producidas</p>
-            <p class="text-xl font-bold text-gray-900">{{ number_format($report['totals']->total_units ?? 0, 2) }}</p>
+        <div class="bg-gradient-to-br from-violet-500 to-purple-800 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-violet-200">Unidades producidas</p>
+            <p class="text-xl font-bold text-white">{{ number_format($report['totals']->total_units ?? 0, 2) }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Costo total real</p>
-            <p class="text-xl font-bold text-purple-700">{{ config('erp.currency_symbol') }} {{ number_format($report['totals']->total_cost ?? 0, 2) }}</p>
+        <div class="bg-gradient-to-br from-indigo-500 to-indigo-800 rounded-xl shadow-sm p-4">
+            <p class="text-xs text-indigo-200">Costo total real</p>
+            <p class="text-xl font-bold text-white">{{ config('erp.currency_symbol') }} {{ number_format($report['totals']->total_cost ?? 0, 2) }}</p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p class="text-xs text-gray-500">Variación vs estimado</p>
-            @php $variance = ($report['totals']->total_cost ?? 0) - ($report['totals']->estimated_cost ?? 0); @endphp
-            <p class="text-xl font-bold {{ $variance > 0 ? 'text-red-500' : 'text-emerald-600' }}">
+        @php $variance = ($report['totals']->total_cost ?? 0) - ($report['totals']->estimated_cost ?? 0); @endphp
+        <div class="bg-gradient-to-br {{ $variance > 0 ? 'from-red-600 to-red-900' : 'from-emerald-500 to-green-700' }} rounded-xl shadow-sm p-4">
+            <p class="text-xs {{ $variance > 0 ? 'text-red-200' : 'text-green-100' }}">Variación vs estimado</p>
+            <p class="text-xl font-bold text-white">
                 {{ $variance > 0 ? '+' : '' }}{{ config('erp.currency_symbol') }} {{ number_format($variance, 2) }}
             </p>
         </div>
