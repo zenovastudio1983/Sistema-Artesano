@@ -11,12 +11,8 @@ Route::prefix('tienda')->name('tienda.')->group(function () {
     Route::get('/{slug}', \App\Http\Livewire\Storefront\ProductDetail::class)->name('product');
 });
 
-// Raíz: redirige según autenticación
-Route::get('/', function () {
-    return auth()->check()
-        ? redirect()->route('dashboard')
-        : redirect()->route('tienda.index');
-});
+// Raíz: siempre va a la tienda
+Route::redirect('/', '/tienda');
 
 // Authenticated routes
 Route::middleware(['auth', 'verified'])->group(function () {
