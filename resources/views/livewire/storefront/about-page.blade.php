@@ -11,7 +11,7 @@
     {{-- Imagen hero --}}
     <div class="rounded-3xl overflow-hidden h-64 mb-10 relative">
         <div class="absolute inset-0 bg-gradient-to-r from-purple-900/60 to-purple-700/30 z-10"></div>
-        <img src="/images/hero-artemar.jpg"
+        <img src="/images/hero-artemar.png"
              alt="ArtEmAr — productos artesanales"
              class="w-full h-full object-cover object-center"
              onerror="this.style.display='none'">

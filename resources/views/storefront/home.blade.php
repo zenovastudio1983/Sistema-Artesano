@@ -19,7 +19,7 @@
                     rgba(88, 28, 135, 0.45) 65%,
                     rgba(88, 28, 135, 0.10) 100%
                 ),
-                url('/images/hero-artemar.jpg');
+                url('/images/hero-artemar.png');
             background-size: cover;
             background-position: center 30%;
         }
@@ -55,7 +55,7 @@
                         rgba(88, 28, 135, 0.90) 60%,
                         rgba(88, 28, 135, 0.75) 100%
                     ),
-                    url('/images/hero-artemar.jpg');
+                    url('/images/hero-artemar.png');
                 background-position: center center;
             }
         }
