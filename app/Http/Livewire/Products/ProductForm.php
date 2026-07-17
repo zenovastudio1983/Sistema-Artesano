@@ -9,19 +9,14 @@ use App\Support\Enums\ProductType;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-use Livewire\WithFileUploads;
-
 #[Layout('layouts.app')]
 #[Title('Producto')]
 class ProductForm extends Component
 {
-    use WithFileUploads;
-
     public ?int $productId = null;
 
-    // Imagen principal
-    public $mainImage = null;
-    public bool $deleteImage = false;
+    // Imagen de tienda (URL externa)
+    public string $storefrontImageUrl = '';
 
     // Identificación
     public string $sku = '';
@@ -106,12 +101,13 @@ class ProductForm extends Component
             $this->weightUnit      = $product->weight_unit ?? 'kg';
             $this->volume          = (string) ($product->volume ?? '');
             $this->volumeUnit      = $product->volume_unit ?? 'L';
-            $this->notes           = $product->notes ?? '';
-            $this->is_published    = (bool) $product->is_published;
-            $this->publicSlug      = $product->public_slug ?? '';
-            $this->publicDescription = $product->public_description ?? '';
-            $this->is_made_to_order  = (bool) $product->is_made_to_order;
-            $this->leadTimeDays    = (string) ($product->lead_time_days ?? '');
+            $this->notes                = $product->notes ?? '';
+            $this->is_published         = (bool) $product->is_published;
+            $this->publicSlug           = $product->public_slug ?? '';
+            $this->publicDescription    = $product->public_description ?? '';
+            $this->is_made_to_order     = (bool) $product->is_made_to_order;
+            $this->leadTimeDays         = (string) ($product->lead_time_days ?? '');
+            $this->storefrontImageUrl   = $product->storefront_image_url ?? '';
         }
     }
 
@@ -189,10 +185,10 @@ class ProductForm extends Component
             ],
             'cost'               => 'nullable|numeric|min:0',
             'price'              => 'nullable|numeric|min:0',
-            'manufacturingDate'  => 'nullable|date',
-            'expiryDate'         => 'nullable|date|after_or_equal:manufacturingDate',
-            'mainImage'          => 'nullable|image|max:2048',
-            'publicSlug'         => [
+            'manufacturingDate'      => 'nullable|date',
+            'expiryDate'            => 'nullable|date|after_or_equal:manufacturingDate',
+            'storefrontImageUrl'    => 'nullable|url|max:2000',
+            'publicSlug'            => [
                 'nullable', 'string', 'max:120', 'regex:/^[a-z0-9\-]+$/',
                 $this->productId
                     ? \Illuminate\Validation\Rule::unique('products', 'public_slug')->ignore($this->productId)
@@ -236,8 +232,9 @@ class ProductForm extends Component
             'is_published'      => $this->is_published,
             'public_slug'       => $this->publicSlug ?: null,
             'public_description'=> $this->publicDescription ?: null,
-            'is_made_to_order'  => $this->is_made_to_order,
-            'lead_time_days'    => $this->leadTimeDays !== '' ? (int) $this->leadTimeDays : null,
+            'is_made_to_order'      => $this->is_made_to_order,
+            'lead_time_days'        => $this->leadTimeDays !== '' ? (int) $this->leadTimeDays : null,
+            'storefront_image_url'  => $this->storefrontImageUrl ?: null,
         ];
 
         if ($this->productId) {
@@ -250,17 +247,6 @@ class ProductForm extends Component
         }
 
         $id = $product->id;
-
-        if ($this->deleteImage) {
-            $product->clearMediaCollection('main_image');
-        }
-
-        if ($this->mainImage) {
-            $product->clearMediaCollection('main_image');
-            $product->addMedia($this->mainImage->getRealPath())
-                    ->usingFileName(time() . '_' . $this->mainImage->getClientOriginalName())
-                    ->toMediaCollection('main_image');
-        }
 
         session()->flash('success', $message);
         $this->redirect(route('products.show', $id));

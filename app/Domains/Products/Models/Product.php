@@ -25,6 +25,7 @@ class Product extends Model implements HasMedia
         'volume_unit', 'status', 'is_purchasable', 'is_sellable', 'is_producible',
         'meta', 'notes',
         'is_published', 'public_slug', 'public_description', 'is_made_to_order', 'lead_time_days',
+        'storefront_image_url',
     ];
 
     protected function casts(): array
@@ -138,9 +139,7 @@ class Product extends Model implements HasMedia
 
     public function getImageUrlAttribute(): ?string
     {
-        $media = $this->getFirstMedia('main_image') ?? $this->getFirstMedia('images');
-
-        return $media?->getUrl();
+        return $this->storefront_image_url ?: null;
     }
 
     public function scopeActive($query)
