@@ -56,14 +56,15 @@
                 {{-- Imagen --}}
                 <a href="{{ route('tienda.product', $product->public_slug) }}"
                    class="block aspect-square bg-gray-50 overflow-hidden relative">
+                    {{-- Placeholder siempre presente como fondo --}}
+                    <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50">
+                        <span class="text-5xl font-black text-indigo-100 select-none">{{ strtoupper(mb_substr($product->name, 0, 1)) }}</span>
+                    </div>
                     @if($product->image_url)
                         <img src="{{ $product->image_url }}"
                              alt="{{ $product->name }}"
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    @else
-                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50">
-                            <span class="text-5xl font-black text-indigo-100 select-none">{{ strtoupper(mb_substr($product->name, 0, 1)) }}</span>
-                        </div>
+                             class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                             onerror="this.remove()">
                     @endif
 
                     {{-- Badges --}}

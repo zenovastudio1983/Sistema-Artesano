@@ -11,17 +11,18 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
 
         {{-- Imagen principal --}}
-        <div class="aspect-square bg-gray-50 rounded-2xl overflow-hidden shadow-sm">
+        <div class="aspect-square bg-gray-50 rounded-2xl overflow-hidden shadow-sm relative">
+            {{-- Placeholder siempre presente como fondo --}}
+            <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50">
+                <span class="text-9xl font-black text-indigo-100 select-none">
+                    {{ strtoupper(mb_substr($product->name, 0, 1)) }}
+                </span>
+            </div>
             @if($product->image_url)
                 <img src="{{ $product->image_url }}"
                      alt="{{ $product->name }}"
-                     class="w-full h-full object-cover">
-            @else
-                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50">
-                    <span class="text-9xl font-black text-indigo-100 select-none">
-                        {{ strtoupper(mb_substr($product->name, 0, 1)) }}
-                    </span>
-                </div>
+                     class="absolute inset-0 w-full h-full object-cover"
+                     onerror="this.remove()">
             @endif
         </div>
 
