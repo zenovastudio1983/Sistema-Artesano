@@ -4,11 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ isset($title) ? $title . ' — ' : '' }}{{ config('erp.company.name') }}</title>
+    <title>{{ isset($title) ? $title . ' — ' : '' }}ArtEmAr</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    <script>
+        window.buyerLoggedIn = {{ auth('buyer')->check() ? 'true' : 'false' }};
+        window.buyerName     = @json(auth('buyer')->user()?->name ?? '');
+    </script>
     <script>
         document.addEventListener('alpine:init', () => {
             const WA_NUMBER = @json(config('erp.whatsapp_number', ''));
@@ -63,6 +67,11 @@
                 },
 
                 sendWhatsapp(name, notes) {
+                    if (!window.buyerLoggedIn) {
+                        window.location.href = '/acceso';
+                        return;
+                    }
+                    const customerName = name || window.buyerName || '';
                     let msg = '¡Hola! Quisiera hacer un pedido 😊\n\n';
                     this.items.forEach(i => {
                         const sub = (i.price * i.quantity).toFixed(2);
@@ -70,7 +79,7 @@
                         if (i.is_made_to_order) msg += `  _(a pedido)_\n`;
                     });
                     msg += `\n*Total estimado: ${CURRENCY} ${this.total.toFixed(2)}*`;
-                    if (name) msg += `\n\nMi nombre: ${name}`;
+                    if (customerName) msg += `\n\nMi nombre: ${customerName}`;
                     if (notes) msg += `\nNotas: ${notes}`;
                     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
                 }
@@ -95,7 +104,7 @@
     </div>
 
     {{-- Panel lateral del carrito --}}
-    <div x-data="{ customerName: '', customerNotes: '' }"
+    <div x-data="{ customerName: window.buyerName || '', customerNotes: '' }"
          x-show="$store.cart.isOpen"
          x-transition:enter="transform transition ease-out duration-300"
          x-transition:enter-start="translate-x-full"
@@ -226,20 +235,42 @@
 
     {{-- Header fijo --}}
     <header class="bg-white border-b border-gray-100 sticky top-0 z-30 shadow-sm">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <a href="{{ route('tienda.index') }}" class="flex items-center gap-2.5 min-w-0">
-                <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-                    </svg>
-                </div>
-                <span class="font-bold text-gray-900 text-sm truncate">{{ config('erp.company.name') }}</span>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+
+            {{-- Logo --}}
+            <a href="{{ route('home') }}" class="flex-shrink-0">
+                <span class="font-bold text-gray-900 text-lg" style="font-family: 'Playfair Display', serif;">ArtEmAr</span>
             </a>
 
-            {{-- Botón carrito --}}
-            <div x-data>
+            {{-- Nav central --}}
+            <nav class="hidden sm:flex items-center gap-5 text-sm">
+                <a href="{{ route('tienda.index') }}" class="text-gray-600 hover:text-purple-700 font-medium transition-colors {{ request()->routeIs('tienda.*') ? 'text-purple-700' : '' }}">Catálogo</a>
+                <a href="{{ route('about') }}"        class="text-gray-600 hover:text-purple-700 font-medium transition-colors {{ request()->routeIs('about') ? 'text-purple-700' : '' }}">Quiénes somos</a>
+                <a href="{{ route('contact') }}"      class="text-gray-600 hover:text-purple-700 font-medium transition-colors {{ request()->routeIs('contact') ? 'text-purple-700' : '' }}">Contacto</a>
+            </nav>
+
+            {{-- Derecha: cuenta + carrito --}}
+            <div x-data class="flex items-center gap-2 flex-shrink-0">
+
+                @if(auth('buyer')->check())
+                    {{-- Usuario logueado --}}
+                    <div class="hidden sm:flex items-center gap-2 text-sm text-gray-600">
+                        <span class="text-purple-700 font-semibold">Hola, {{ auth('buyer')->user()->name }}</span>
+                        <form method="POST" action="{{ route('buyer.logout') }}" class="inline">
+                            @csrf
+                            <button type="submit" class="text-xs text-gray-400 hover:text-red-500 transition-colors">Salir</button>
+                        </form>
+                    </div>
+                @else
+                    <a href="{{ route('buyer.login') }}"
+                       class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-purple-700 hover:text-purple-900 border border-purple-200 hover:border-purple-400 px-3 py-1.5 rounded-lg transition-colors">
+                        Ingresar
+                    </a>
+                @endif
+
+                {{-- Carrito --}}
                 <button @click="$store.cart.isOpen = true"
-                        class="relative flex items-center gap-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-2 rounded-xl transition-colors">
+                        class="relative flex items-center gap-2 bg-purple-50 hover:bg-purple-100 text-purple-700 px-3 py-2 rounded-xl transition-colors">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                     </svg>
@@ -261,7 +292,7 @@
     {{-- Footer --}}
     <footer class="border-t border-gray-100 mt-8 bg-white">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
-            <p class="text-xs text-gray-400">© {{ date('Y') }} {{ config('erp.company.name') }}</p>
+            <p class="text-xs text-gray-400">© {{ date('Y') }} ArtEmAr — Artesanía que transforma tu mundo</p>
             <a href="{{ route('login') }}"
                class="text-xs text-gray-400 hover:text-gray-600 transition-colors">
                 Acceso empleados →

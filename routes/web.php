@@ -2,17 +2,36 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Auth routes
+// Auth routes (ERP empleados)
 require __DIR__ . '/auth.php';
 
-// Tienda pública (sin autenticación)
+// ─── Sitio público ArtEmAr ────────────────────────────────────────────────
+
+// Landing
+Route::view('/', 'storefront.home')->name('home');
+
+// Páginas estáticas / contacto
+Route::get('/quienes-somos', \App\Http\Livewire\Storefront\AboutPage::class)->name('about');
+Route::get('/contacto', \App\Http\Livewire\Storefront\ContactPage::class)->name('contact');
+
+// Auth compradores
+Route::middleware('guest:buyer')->group(function () {
+    Route::get('/acceso',   \App\Http\Livewire\Storefront\BuyerLogin::class)->name('buyer.login');
+    Route::get('/registro', \App\Http\Livewire\Storefront\BuyerRegister::class)->name('buyer.register');
+});
+
+Route::post('/buyer/logout', function () {
+    auth('buyer')->logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect()->route('home');
+})->name('buyer.logout');
+
+// Catálogo (libre, sin auth)
 Route::prefix('tienda')->name('tienda.')->group(function () {
     Route::get('/', \App\Http\Livewire\Storefront\Catalog::class)->name('index');
     Route::get('/{slug}', \App\Http\Livewire\Storefront\ProductDetail::class)->name('product');
 });
-
-// Raíz: siempre va a la tienda
-Route::redirect('/', '/tienda');
 
 // Authenticated routes
 Route::middleware(['auth', 'verified'])->group(function () {

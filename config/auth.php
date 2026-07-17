@@ -13,6 +13,11 @@ return [
             'provider' => 'users',
         ],
 
+        'buyer' => [
+            'driver'   => 'session',
+            'provider' => 'buyers',
+        ],
+
         'api' => [
             'driver' => 'sanctum',
             'provider' => 'users',
@@ -24,6 +29,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Domains\Users\Models\User::class,
         ],
+
+        'buyers' => [
+            'driver' => 'eloquent',
+            'model'  => App\Domains\Storefront\Models\Buyer::class,
+        ],
     ],
 
     'passwords' => [
@@ -31,6 +41,13 @@ return [
             'provider' => 'users',
             'table' => 'password_reset_tokens',
             'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'buyers' => [
+            'provider' => 'buyers',
+            'table'    => 'password_reset_tokens',
+            'expire'   => 60,
             'throttle' => 60,
         ],
     ],
