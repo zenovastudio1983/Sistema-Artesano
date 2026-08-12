@@ -35,7 +35,7 @@
             $chipClass = match($status->value) {
                 'draft'     => $filterStatus === $status->value ? 'bg-gray-600 text-white' : 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200',
                 'sent'      => $filterStatus === $status->value ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100',
-                'partial'   => $filterStatus === $status->value ? 'bg-yellow-500 text-white' : 'bg-yellow-50 text-yellow-700 border border-yellow-200 hover:bg-yellow-100',
+                'partially_received' => $filterStatus === $status->value ? 'bg-yellow-500 text-white' : 'bg-yellow-50 text-yellow-700 border border-yellow-200 hover:bg-yellow-100',
                 'received'  => $filterStatus === $status->value ? 'bg-green-600 text-white' : 'bg-green-50 text-green-700 border border-green-200 hover:bg-green-100',
                 'cancelled' => $filterStatus === $status->value ? 'bg-red-600 text-white' : 'bg-red-50 text-red-700 border border-red-200 hover:bg-red-100',
                 default     => $filterStatus === $status->value ? 'bg-indigo-600 text-white' : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50',
@@ -100,7 +100,7 @@
                         $badgeClass = match($order->status->value) {
                             'draft'     => 'badge-gray',
                             'sent'      => 'badge-blue',
-                            'partial'   => 'badge-yellow',
+                            'partially_received' => 'badge-yellow',
                             'received'  => 'badge-green',
                             'cancelled' => 'badge-red',
                             default     => 'badge-gray',

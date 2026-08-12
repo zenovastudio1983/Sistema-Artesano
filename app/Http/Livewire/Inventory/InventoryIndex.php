@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Inventory;
 
-use App\Domains\Inventory\Models\Warehouse;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
@@ -24,9 +23,6 @@ class InventoryIndex extends Component
 
     #[Url(except: '')]
     public string $filterType = '';
-
-    #[Url(except: 0)]
-    public int $filterWarehouse = 0;
 
     public string $sortBy = 'product_name';
     public string $sortDir = 'asc';
@@ -66,7 +62,6 @@ class InventoryIndex extends Component
         return view('livewire.inventory.index', [
             'inventory' => $inventory,
             'summary' => $summary,
-            'warehouses' => Warehouse::active()->get(),
         ]);
     }
 }

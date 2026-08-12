@@ -63,18 +63,10 @@
                 <tbody class="bg-white divide-y divide-gray-50">
                     @forelse($movements as $movement)
                     @php
-                        $typeClass = match($movement->movement_type->value ?? $movement->movement_type) {
-                            'purchase_receipt', 'production_output', 'adjustment_in', 'transfer_in' => 'badge-green',
-                            'sale_delivery', 'production_consumption', 'adjustment_out', 'transfer_out' => 'badge-red',
-                            'adjustment' => 'badge-yellow',
-                            default => 'badge-gray',
-                        };
-                        $qtyClass = in_array($movement->movement_type->value ?? $movement->movement_type, [
-                            'purchase_receipt', 'production_output', 'adjustment_in', 'transfer_in'
-                        ]) ? 'text-emerald-600' : 'text-red-500';
-                        $qtySign = in_array($movement->movement_type->value ?? $movement->movement_type, [
-                            'purchase_receipt', 'production_output', 'adjustment_in', 'transfer_in'
-                        ]) ? '+' : '-';
+                        $isEntry = $movement->movement_type->isEntry();
+                        $typeClass = $isEntry ? 'badge-green' : 'badge-red';
+                        $qtyClass  = $isEntry ? 'text-emerald-600' : 'text-red-500';
+                        $qtySign   = $isEntry ? '+' : '-';
                     @endphp
                     <tr class="hover:bg-gray-50 transition-colors">
                         <td class="px-6 py-4 text-sm text-gray-500">
@@ -100,7 +92,7 @@
                             {{ $movement->unit_cost ? config('erp.currency_symbol') . ' ' . number_format($movement->unit_cost, 2) : '—' }}
                         </td>
                         <td class="px-6 py-4 text-sm text-gray-500">
-                            {{ $movement->reference ?? $movement->notes ?? '—' }}
+                            {{ $movement->reference_number ?? $movement->notes ?? '—' }}
                         </td>
                         <td class="px-6 py-4 text-sm text-gray-500">
                             {{ $movement->createdBy?->name ?? '—' }}

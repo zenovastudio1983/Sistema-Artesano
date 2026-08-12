@@ -118,9 +118,9 @@
                                     </td>
                                     <td class="py-3 px-4 text-right font-medium text-gray-900">{{ number_format($item->subtotal, 2) }}</td>
                                     <td class="py-3 pl-4 text-right">
-                                        @if(isset($item->margin) && $item->margin !== null)
-                                            <span class="{{ $item->margin >= 0 ? 'text-emerald-600' : 'text-red-600' }} font-medium">
-                                                {{ number_format($item->margin, 1) }}%
+                                        @if($item->subtotal > 0)
+                                            <span class="{{ $item->margin_percent >= 0 ? 'text-emerald-600' : 'text-red-600' }} font-medium">
+                                                {{ number_format($item->margin_percent, 1) }}%
                                             </span>
                                         @else
                                             <span class="text-gray-400">—</span>

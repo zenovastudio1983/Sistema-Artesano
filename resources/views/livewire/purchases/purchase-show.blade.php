@@ -11,6 +11,8 @@
         <div class="flex gap-2">
             @if($order->status->value === 'draft')
                 <a href="{{ route('purchases.edit', $order) }}" class="btn-secondary">Editar</a>
+            @elseif($order->status->value === 'sent')
+                <a href="{{ route('purchases.edit', $order) }}" class="btn-secondary">Editar</a>
                 <a href="{{ route('purchases.receive', $order) }}" class="btn-primary">Recibir Mercancía</a>
             @elseif($order->status->value === 'partially_received')
                 <a href="{{ route('purchases.receive', $order) }}" class="btn-primary">Continuar Recepción</a>

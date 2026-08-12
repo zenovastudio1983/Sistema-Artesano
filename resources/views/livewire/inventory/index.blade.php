@@ -85,14 +85,6 @@
                 <option value="semi_finished">Semi-elaborado</option>
                 <option value="supply">Insumo</option>
             </select>
-            @if($warehouses->count() > 1)
-            <select wire:model.live="filterWarehouse" class="py-2 px-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
-                <option value="0">Todos los almacenes</option>
-                @foreach($warehouses as $warehouse)
-                    <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
-                @endforeach
-            </select>
-            @endif
         </div>
     </div>
 
