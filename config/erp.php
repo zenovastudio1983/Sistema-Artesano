@@ -80,7 +80,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'cache' => [
-        'dashboard_kpis' => 300,       // 5 minutes
+        'dashboard_kpis' => 60,        // 1 minute
         'product_costs' => 600,        // 10 minutes
         'inventory_summary' => 300,    // 5 minutes
         'reports' => 1800,             // 30 minutes
