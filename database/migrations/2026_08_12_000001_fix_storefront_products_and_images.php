@@ -18,7 +18,7 @@ return new class extends Migration
             'Kit Spa Lavanda (Jabón+Vela)'       => 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&h=600&fit=crop',
             'Galletas Artesanales de Avena 250g' => 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&h=600&fit=crop',
             'Brownies Artesanales de Cacao 200g' => 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=600&fit=crop',
-            'Aceite Corporal Relajante 100ml'    => 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=600&fit=crop',
+            'Aceite Corporal Relajante 100ml'    => 'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=600&h=600&fit=crop',
         ];
 
         // Productos finales que deben estar en la tienda
