@@ -17,7 +17,7 @@ return new class extends Migration
             'Crema Corporal Karité 200ml'        => 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&h=600&fit=crop',
             'Kit Spa Lavanda (Jabón+Vela)'       => 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&h=600&fit=crop',
             'Galletas Artesanales de Avena 250g' => 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&h=600&fit=crop',
-            'Brownies Artesanales de Cacao 200g' => 'https://images.unsplash.com/photo-1606313564004-4cb8b5a2b0a4?w=600&h=600&fit=crop',
+            'Brownies Artesanales de Cacao 200g' => 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=600&fit=crop',
             'Aceite Corporal Relajante 100ml'    => 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=600&fit=crop',
         ];
 
