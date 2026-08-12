@@ -12,6 +12,13 @@ return new class extends Migration
             ->update([
                 'storefront_image_url' => 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=600&fit=crop',
             ]);
+
+        // Corregir slug con caracteres especiales del nombre "Kit Spa Lavanda (Jabón+Vela)"
+        DB::table('products')
+            ->where('name', 'Kit Spa Lavanda (Jabón+Vela)')
+            ->update([
+                'public_slug' => 'kit-spa-lavanda-jabon-vela-29',
+            ]);
     }
 
     public function down(): void {}
